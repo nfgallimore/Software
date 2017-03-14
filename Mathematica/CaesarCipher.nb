@@ -1,0 +1,2799 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 9.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       157,          7]
+NotebookDataLength[    129896,       2790]
+NotebookOptionsPosition[    125084,       2639]
+NotebookOutlinePosition[    126706,       2690]
+CellTagsIndexPosition[    126370,       2678]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Simple Caesar Cipher", "DemoTitle",
+ CellChangeTimes->{{3.5717208302619867`*^9, 3.5717208387796016`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["", "InitializationSection"],
+
+Cell[BoxData[
+ RowBox[{"(*", "Initialization", "*)"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.57940438924129*^9, {3.5794419562740297`*^9, 3.579441985648882*^9}, 
+   3.5831154887723465`*^9, 3.583115649062628*^9, {3.587412908470293*^9, 
+   3.58741294819569*^9}},
+ CellID->36941508],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"alph", " ", "=", " ", 
+    RowBox[{"CharacterRange", "[", 
+     RowBox[{"\"\<A\>\"", ",", "\"\<Z\>\""}], "]"}]}], ";"}], " "}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.57940438924129*^9, {3.5794419562740297`*^9, 3.579441985648882*^9}, 
+   3.5831154887723465`*^9, 3.583115649062628*^9, {3.587412908470293*^9, 
+   3.58741294819569*^9}, 3.587873928752705*^9},
+ CellID->1138706843],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"caesar", "=", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<ALL LEGIONS ADVANCE NOW\>\"", ",", 
+       "\"\<ALLXLEGIONSXADVANCEXNOW\>\"", ",", "14"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<THE DIE IS CAST\>\"", ",", "\"\<THEXDIEXISXCAST\>\"", ",", "9"}], 
+      "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<I CAME I SAW I CONQUERED\>\"", ",", 
+       "\"\<IXCAMEXIXSAWXIXCONQUERED\>\"", ",", "15"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<THE IDES OF MARCH ARE COME\>\"", ",", 
+       "\"\<THEXIDESXOFXMARCHXAREXCOME\>\"", ",", "7"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<EVEN YOU BRUTUS\>\"", ",", "\"\<EVENXYOUXBRUTUS\>\"", ",", "12"}], 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<THEN FALL CAESAR\>\"", ",", "\"\<THENXFALLXCAESAR\>\"", ",", 
+       "13"}], "}"}]}], "}"}]}], ";"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.57940438924129*^9, {3.5794419562740297`*^9, 3.579441985648882*^9}, 
+   3.5831154887723465`*^9, 3.583115649062628*^9, {3.587412908470293*^9, 
+   3.587412951636866*^9}},
+ CellID->1082867241],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"End", " ", "of", " ", "initialization"}], "*)"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{
+  3.57940438924129*^9, {3.5794419562740297`*^9, 3.579441985648882*^9}, 
+   3.5831154887723465`*^9, 3.583115649062628*^9, {3.587412908470293*^9, 
+   3.587412951636866*^9}},
+ CellID->2019131884]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateSection"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"PaneSelector", "[", 
+    RowBox[{
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"1", "\[Rule]", " ", "\[IndentingNewLine]", 
+        RowBox[{"Column", "[", 
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Style", "[", 
+            RowBox[{
+            "\"\<or enter a message directly (max 32 characters)\>\"", ",", 
+             " ", "14", ",", " ", 
+             RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], "]"}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"Row", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Button", "[", 
+               RowBox[{"#", ",", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"StringLength", "[", "message", "]"}], "<", "33"}],
+                   ",", 
+                  RowBox[{
+                   RowBox[{"message", "=", 
+                    RowBox[{"message", "<>", "#"}]}], ";", " ", 
+                   RowBox[{"messagex", "=", 
+                    RowBox[{"messagex", "<>", "#"}]}]}]}], "]"}], ",", " ", 
+                RowBox[{"ImageSize", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"22", ",", "20"}], "}"}]}], ",", 
+                RowBox[{"Appearance", "\[Rule]", "\"\<FramedPalette\>\""}]}], 
+               "]"}], "&"}], "/@", "alph"}], "]"}], ",", 
+           RowBox[{"(*", 
+            RowBox[{
+            "creates", " ", "a", " ", "list", " ", "of", " ", "Buttons", " ", 
+             "arranged", " ", "into", " ", "a", " ", "Row"}], "*)"}], 
+           "\[IndentingNewLine]", 
+           RowBox[{"Row", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Button", "[", 
+               RowBox[{"\"\<SPACE\>\"", ",", " ", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"StringLength", "[", "message", "]"}], "<", "33"}],
+                   ",", 
+                  RowBox[{
+                   RowBox[{"message", "=", 
+                    RowBox[{"message", "<>", "\"\< \>\""}]}], ";", " ", 
+                   RowBox[{"messagex", "=", 
+                    RowBox[{"messagex", "<>", "\"\<X\>\""}]}]}]}], "]"}], ",", 
+                RowBox[{"ImageSize", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"200", ",", "20"}], "}"}]}], ",", 
+                RowBox[{"Appearance", "\[Rule]", "\"\<FramedPalette\>\""}]}], 
+               "]"}], ",", 
+              RowBox[{"Button", "[", 
+               RowBox[{"\"\<BACKSPACE\>\"", ",", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"StringLength", "[", "message", "]"}], ">", "0"}], 
+                  ",", 
+                  RowBox[{
+                   RowBox[{"message", "=", 
+                    RowBox[{"StringDrop", "[", 
+                    RowBox[{"message", ",", 
+                    RowBox[{"-", "1"}]}], "]"}]}], ";", 
+                   RowBox[{"messagex", "=", 
+                    RowBox[{"StringDrop", "[", 
+                    RowBox[{"messagex", ",", 
+                    RowBox[{"-", "1"}]}], "]"}]}]}]}], "]"}], ",", 
+                RowBox[{"ImageSize", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"120", ",", "20"}], "}"}]}], ",", 
+                RowBox[{"Appearance", "\[Rule]", "\"\<FramedPalette\>\""}]}], 
+               "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"Text", "@", 
+            RowBox[{"Row", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Style", "[", 
+                RowBox[{"\"\<message   = \>\"", ",", "14", ",", " ", 
+                 RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], 
+                "]"}], ",", " ", 
+               RowBox[{"Style", "[", 
+                RowBox[{"message", ",", " ", "16", ",", " ", "Bold", ",", 
+                 RowBox[{"FontFamily", " ", "->", "\"\<Helvetica\>\""}]}], 
+                "]"}]}], "}"}], "]"}]}], ",", "\[IndentingNewLine]", 
+           "\"\<\>\"", ",", "\[IndentingNewLine]", 
+           RowBox[{"Text", "@", 
+            RowBox[{"Row", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Style", "[", 
+                RowBox[{"\"\<plaintext    = \>\"", ",", "14", ",", " ", 
+                 RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], 
+                "]"}], ",", " ", 
+               RowBox[{"Style", "[", 
+                RowBox[{"messagex", ",", " ", "16", ",", " ", "Bold", ",", 
+                 RowBox[{"FontFamily", " ", "->", "\"\<Helvetica\>\""}]}], 
+                "]"}]}], "}"}], "]"}]}], ",", "\[IndentingNewLine]", 
+           "\"\<\>\"", ",", "\[IndentingNewLine]", 
+           RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+            RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"alph", "[", 
+                  RowBox[{"[", "x", "]"}], "]"}], ",", " ", 
+                 "\"\<\[DownArrow]\>\"", ",", " ", 
+                 RowBox[{
+                  RowBox[{"RotateLeft", "[", 
+                   RowBox[{"alph", ",", "eoffset"}], "]"}], "[", 
+                  RowBox[{"[", "x", "]"}], "]"}]}], "}"}], ",", " ", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", "1", ",", "26"}], "}"}]}], "]"}], "]"}], 
+            "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", ",", " ", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Row", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Style", "[", 
+               RowBox[{"\"\<ciphertext = \>\"", ",", "14", ",", " ", 
+                RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], 
+               "]"}], ",", 
+              RowBox[{"Style", "[", 
+               RowBox[{
+                RowBox[{"encodex", "=", 
+                 RowBox[{"StringJoin", "[", 
+                  RowBox[{
+                   RowBox[{"Characters", "[", "messagex", "]"}], "/.", 
+                   RowBox[{"Thread", "[", 
+                    RowBox[{"alph", "\[Rule]", 
+                    RowBox[{"RotateLeft", "[", 
+                    RowBox[{"alph", ",", "eoffset"}], "]"}]}], "]"}]}], 
+                  "]"}]}], ",", "16", ",", "Bold", ",", 
+                RowBox[{"FontFamily", " ", "->", "\"\<Helvetica\>\""}]}], 
+               "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", 
+           ","}], "\[IndentingNewLine]", "}"}], "]"}]}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"2", "\[Rule]", " ", "\[IndentingNewLine]", 
+        RowBox[{"Column", "[", 
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"Style", "[", 
+            RowBox[{
+            "\"\<or enter a ciphertext string directly (max 32 \
+characters)\>\"", ",", " ", "14", ",", " ", 
+             RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], "]"}], 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"Row", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Button", "[", 
+               RowBox[{"#", ",", " ", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"StringLength", "[", "interceptx", "]"}], "<", 
+                   "33"}], ",", 
+                  RowBox[{"interceptx", "=", 
+                   RowBox[{"interceptx", "<>", "#"}]}]}], "]"}], ",", " ", 
+                RowBox[{"ImageSize", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"22", ",", "20"}], "}"}]}], ",", 
+                RowBox[{"Appearance", "\[Rule]", "\"\<FramedPalette\>\""}]}], 
+               "]"}], "&"}], "/@", "alph"}], "]"}], ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Button", "[", 
+            RowBox[{"\"\<BACKSPACE\>\"", ",", 
+             RowBox[{"If", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"StringLength", "[", "interceptx", "]"}], ">", "0"}], 
+               ",", 
+               RowBox[{"interceptx", "=", 
+                RowBox[{"StringDrop", "[", 
+                 RowBox[{"interceptx", ",", 
+                  RowBox[{"-", "1"}]}], "]"}]}]}], "]"}], ",", 
+             RowBox[{"ImageSize", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{"120", ",", "20"}], "}"}]}], ",", 
+             RowBox[{"Appearance", "\[Rule]", "\"\<FramedPalette\>\""}]}], 
+            "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", ",", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Row", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Style", "[", 
+               RowBox[{"\"\<intercept = \>\"", ",", "14", ",", " ", 
+                RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], 
+               "]"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"Style", "[", 
+               RowBox[{"interceptx", ",", "16", ",", "Bold", ",", " ", 
+                RowBox[{"FontFamily", "\[Rule]", "\"\<Helvetica\>\""}]}], 
+               "]"}]}], "}"}], "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", 
+           ",", "\[IndentingNewLine]", 
+           RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+            RowBox[{"Transpose", "[", "\[IndentingNewLine]", 
+             RowBox[{"Table", "[", 
+              RowBox[{
+               RowBox[{"{", " ", 
+                RowBox[{
+                 RowBox[{
+                  RowBox[{"RotateRight", "[", 
+                   RowBox[{"alph", ",", "doffset"}], "]"}], "[", 
+                  RowBox[{"[", "x", "]"}], "]"}], ",", "\"\<\[DownArrow]\>\"",
+                  ",", 
+                 RowBox[{"alph", "[", 
+                  RowBox[{"[", "x", "]"}], "]"}]}], "}"}], ",", " ", 
+               RowBox[{"{", 
+                RowBox[{"x", ",", "1", ",", "26"}], "}"}]}], "]"}], "]"}], 
+            "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", ",", " ", 
+           "\[IndentingNewLine]", 
+           RowBox[{"Grid", "[", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"Prepend", "[", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Table", "[", 
+                RowBox[{
+                 RowBox[{"{", "\[IndentingNewLine]", 
+                  RowBox[{"d", ",", 
+                   RowBox[{"Row", "[", "\[IndentingNewLine]", 
+                    RowBox[{"Flatten", "[", "\[IndentingNewLine]", 
+                    RowBox[{"List", "[", 
+                    RowBox[{"List", "@@", "\[IndentingNewLine]", 
+                    RowBox[{"StringReplace", "[", 
+                    RowBox[{
+                    RowBox[{"StringJoin", "[", 
+                    RowBox[{
+                    RowBox[{"Characters", "[", "interceptx", "]"}], "/.", 
+                    RowBox[{"Thread", "[", 
+                    RowBox[{"alph", "\[Rule]", 
+                    RowBox[{"RotateLeft", "[", 
+                    RowBox[{"alph", ",", " ", "d"}], "]"}]}], "]"}]}], "]"}], 
+                    ",", 
+                    RowBox[{
+                    RowBox[{"y", ":", 
+                    RowBox[{"(", 
+                    RowBox[{"StringCases", "[", 
+                    RowBox[{
+                    RowBox[{"StringJoin", "[", 
+                    RowBox[{
+                    RowBox[{"Characters", "[", "interceptx", "]"}], "/.", 
+                    RowBox[{"Thread", "[", 
+                    RowBox[{"alph", "\[Rule]", 
+                    RowBox[{"RotateLeft", "[", 
+                    RowBox[{"alph", ",", " ", "d"}], "]"}]}], "]"}]}], "]"}], 
+                    ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"StartOfString", "~~", 
+                    RowBox[{"x", ":", "__"}]}], "/;", 
+                    RowBox[{
+                    RowBox[{"DictionaryLookup", "[", 
+                    RowBox[{"x", ",", " ", 
+                    RowBox[{"IgnoreCase", "\[Rule]", "True"}]}], "]"}], " ", 
+                    "\[NotEqual]", 
+                    RowBox[{"{", "}"}]}]}], "\[RuleDelayed]", "x"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"s_", "~~", 
+                    RowBox[{"x", ":", "__"}], "~~", "s_"}], "/;", 
+                    RowBox[{
+                    RowBox[{"DictionaryLookup", "[", 
+                    RowBox[{"x", ",", " ", 
+                    RowBox[{"IgnoreCase", "\[Rule]", "True"}]}], "]"}], " ", 
+                    "\[NotEqual]", 
+                    RowBox[{"{", "}"}]}]}], "\[RuleDelayed]", "x"}], ",", " ", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"x", ":", "__"}], "~~", "EndOfString"}], "/;", 
+                    RowBox[{
+                    RowBox[{"DictionaryLookup", "[", 
+                    RowBox[{"x", ",", " ", 
+                    RowBox[{"IgnoreCase", "\[Rule]", "True"}]}], "]"}], " ", 
+                    "\[NotEqual]", 
+                    RowBox[{"{", "}"}]}]}], "\[RuleDelayed]", "x"}]}], "}"}], 
+                    ",", " ", 
+                    RowBox[{"Overlaps", "\[Rule]", "True"}]}], "]"}], ")"}]}],
+                     "\[RuleDelayed]", 
+                    RowBox[{"Style", "[", 
+                    RowBox[{"y", ",", 
+                    RowBox[{"FontColor", "->", 
+                    RowBox[{"RGBColor", "[", 
+                    RowBox[{"1", ",", "0", ",", "0"}], "]"}]}], ",", "18", 
+                    ",", "Bold"}], "]"}]}]}], "]"}]}], 
+                    RowBox[{"(*", 
+                    RowBox[{"end", " ", "of", " ", "StringReplace"}], "*)"}], 
+                    "\[IndentingNewLine]", "]"}], 
+                    RowBox[{"(*", 
+                    RowBox[{"end", " ", "of", " ", "List"}], "*)"}], 
+                    "\[IndentingNewLine]", "]"}], 
+                    RowBox[{"(*", 
+                    RowBox[{"end", " ", "of", " ", "Flatten"}], "*)"}], 
+                    "\[IndentingNewLine]", "]"}]}], 
+                  RowBox[{"(*", 
+                   RowBox[{"end", " ", "of", " ", "Row"}], "*)"}], 
+                  "\[IndentingNewLine]", "}"}], ",", 
+                 RowBox[{"{", 
+                  RowBox[{"d", ",", 
+                   RowBox[{"doffset", "-", "2"}], ",", 
+                   RowBox[{"doffset", "+", "2"}]}], "}"}]}], "]"}], ",", 
+               RowBox[{"(*", 
+                RowBox[{"end", " ", "of", " ", "Table"}], "*)"}], 
+               "\[IndentingNewLine]", 
+               RowBox[{"{", 
+                RowBox[{"\"\<offset\>\"", ",", " ", "\"\<decoding\>\""}], 
+                "}"}]}], "]"}], ",", " ", 
+             RowBox[{"(*", 
+              RowBox[{"end", " ", "of", " ", "Prepend"}], "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{"Frame", "\[Rule]", "All"}], ",", 
+             RowBox[{"Background", "\[Rule]", " ", 
+              RowBox[{"{", 
+               RowBox[{"None", ",", 
+                RowBox[{"{", 
+                 RowBox[{"4", "\[Rule]", 
+                  RowBox[{"Lighter", "[", 
+                   RowBox[{"Gray", ",", "0.85"}], "]"}]}], "}"}]}], "}"}]}], 
+             ",", " ", 
+             RowBox[{"ItemSize", "\[Rule]", 
+              RowBox[{"{", 
+               RowBox[{"Automatic", ",", "2"}], "}"}]}]}], "]"}], ","}], 
+          RowBox[{"(*", 
+           RowBox[{"end", " ", "of", " ", "Grid"}], "*)"}], 
+          "\[IndentingNewLine]", "}"}], "]"}]}]}], 
+      RowBox[{"(*", 
+       RowBox[{"end", " ", "of", " ", "Column"}], "*)"}], 
+      "\[IndentingNewLine]", "}"}], ",", "selector"}], "]"}], ",", 
+   RowBox[{"(*", 
+    RowBox[{"end", " ", "of", " ", "PaneSelector"}], "*)"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"eoffset", ",", "0"}], "}"}], ",", "0", ",", "26", ",", 
+     RowBox[{"ControlType", "\[Rule]", "None"}]}], "}"}], ",", " ", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+      "to", " ", "enable", " ", "different", " ", "functions", " ", "for", 
+       " ", "the", " ", "slider", " ", "in", " ", "encoding"}], " ", "&"}], 
+     " ", "decoding", " ", "panes"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"doffset", ",", "0"}], "}"}], ",", 
+     RowBox[{"-", "26"}], ",", "26", ",", 
+     RowBox[{"ControlType", "\[Rule]", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"message", ",", " ", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"ControlType", "\[Rule]", "None"}]}], "}"}], ",", " ", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{
+      RowBox[{
+      "to", " ", "enable", " ", "selection", " ", "of", " ", "different", " ",
+        "messages", " ", "in", " ", "the", " ", "thumbnail"}], " ", "&"}], 
+     " ", "snapshots"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"messagex", ",", " ", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"ControlType", "\[Rule]", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"encodex", ",", " ", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"ControlType", "\[Rule]", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"interceptx", ",", " ", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"ControlType", "\[Rule]", "None"}]}], "}"}], ",", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"selector", ",", "1", ",", "\"\<\>\""}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "\[Rule]", "\"\<encoding\>\""}], ",", 
+       RowBox[{"2", "\[Rule]", "\"\<decoding\>\""}]}], "}"}], ",", 
+     "SetterBar"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Item", "[", 
+    RowBox[{"PaneSelector", "[", 
+     RowBox[{
+      RowBox[{"{", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"1", "\[Rule]", 
+         RowBox[{"Column", "[", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{"\"\<\>\"", ",", "\[IndentingNewLine]", 
+            RowBox[{"Row", "[", 
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Spacer", "[", "6", "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"ActionMenu", "[", 
+                RowBox[{"\"\<choose a message\>\"", ",", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"caesar", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"#", ",", "1"}], "]"}], "]"}], "\[RuleDelayed]", 
+                    " ", 
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"message", "=", 
+                    RowBox[{"caesar", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"#", ",", "1"}], "]"}], "]"}]}], ";", 
+                    RowBox[{"messagex", "=", 
+                    RowBox[{"caesar", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"#", ",", "2"}], "]"}], "]"}]}], ";", 
+                    RowBox[{"eoffset", "=", 
+                    RowBox[{"caesar", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"#", ",", "3"}], "]"}], "]"}]}], ";"}], ")"}]}], 
+                   "&"}], "/@", 
+                  RowBox[{"Range", "[", "6", "]"}]}]}], "]"}], ",", 
+               "\[IndentingNewLine]", 
+               RowBox[{"Button", "[", 
+                RowBox[{"\"\<clear encoding area\>\"", ",", " ", 
+                 RowBox[{
+                  RowBox[{"message", "=", "\"\<\>\""}], ";", 
+                  RowBox[{"messagex", "=", "\"\<\>\""}], ";", 
+                  RowBox[{"eoffset", "=", "0"}]}], ",", " ", 
+                 RowBox[{"ImageSize", "\[Rule]", "150"}]}], "]"}]}], "}"}], 
+             "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Row", "[", 
+             RowBox[{
+              RowBox[{"{", "\[IndentingNewLine]", 
+               RowBox[{"\"\<encoding offset\>\"", ",", 
+                RowBox[{"Manipulator", "[", 
+                 RowBox[{
+                  RowBox[{"Dynamic", "[", "eoffset", "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{"0", ",", "26", ",", "1"}], "}"}], ",", 
+                  RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], 
+                 "]"}]}], "}"}], ",", " ", 
+              RowBox[{"Spacer", "[", "2", "]"}]}], "]"}]}], "}"}], "]"}]}], 
+        ",", "\[IndentingNewLine]", 
+        RowBox[{"2", "\[Rule]", 
+         RowBox[{"Column", "[", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{"\"\<\>\"", ",", "\[IndentingNewLine]", 
+            RowBox[{"Row", "[", 
+             RowBox[{"{", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"Spacer", "[", "6", "]"}], ",", "\[IndentingNewLine]", 
+               RowBox[{"Button", "[", 
+                RowBox[{"\"\<intercept an encrypted message\>\"", ",", 
+                 RowBox[{
+                  RowBox[{"interceptx", "=", "encodex"}], ";", " ", 
+                  RowBox[{"doffset", "=", 
+                   RowBox[{"-", "2"}]}]}], ",", 
+                 RowBox[{"ImageSize", "\[Rule]", "250"}]}], "]"}], ",", 
+               RowBox[{"Button", "[", 
+                RowBox[{"\"\<clear decoding area\>\"", ",", " ", 
+                 RowBox[{
+                  RowBox[{"interceptx", "=", "\"\<\>\""}], ";", 
+                  RowBox[{"doffset", "=", 
+                   RowBox[{"-", "2"}]}]}], ",", " ", 
+                 RowBox[{"ImageSize", "\[Rule]", "150"}]}], "]"}]}], "}"}], 
+             "]"}], ",", "\[IndentingNewLine]", "\"\<\>\"", ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{"Row", "[", 
+             RowBox[{
+              RowBox[{"{", "\[IndentingNewLine]", 
+               RowBox[{"\"\<decoding offset\>\"", ",", 
+                RowBox[{"Manipulator", "[", 
+                 RowBox[{
+                  RowBox[{"Dynamic", "[", "doffset", "]"}], ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"-", "26"}], ",", "26", ",", "1"}], "}"}], ",", 
+                  RowBox[{"Appearance", "\[Rule]", "\"\<Labeled\>\""}]}], 
+                 "]"}]}], "}"}], ",", 
+              RowBox[{"Spacer", "[", "2", "]"}]}], "]"}]}], "}"}], "]"}]}]}], 
+       "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Dynamic", "[", "selector", "]"}]}], "]"}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"TrackedSymbols", "\[RuleDelayed]", "All"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "True"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.574172898603165*^9, 3.574172938523635*^9}, {
+   3.574173027350191*^9, 3.5741731503096075`*^9}, {3.57417318594007*^9, 
+   3.5741733425799446`*^9}, {3.574173406290457*^9, 3.574173534070281*^9}, {
+   3.5741738998909235`*^9, 3.5741740729420276`*^9}, {3.574174110085693*^9, 
+   3.5741741200853105`*^9}, 3.5741742287707014`*^9, {3.5741742891584077`*^9, 
+   3.5741742983312235`*^9}, {3.5741744508838916`*^9, 
+   3.5741744530678954`*^9}, {3.574174527370826*^9, 3.574174536481242*^9}, {
+   3.5741747299215813`*^9, 3.5741747434000053`*^9}, {3.5741749113967004`*^9, 
+   3.5741749922828426`*^9}, {3.5751730623431935`*^9, 
+   3.5751731112804794`*^9}, {3.5751732843471837`*^9, 
+   3.5751733741253414`*^9}, {3.575173519501997*^9, 3.575173551794053*^9}, {
+   3.5751736314789934`*^9, 3.575173670775462*^9}, {3.5751737031611195`*^9, 
+   3.5751737293223653`*^9}, {3.5751738457921696`*^9, 3.575173926569112*^9}, {
+   3.5751740135236645`*^9, 3.5751741296502686`*^9}, {3.575174209210408*^9, 
+   3.5751742567124915`*^9}, {3.575174295213359*^9, 3.575174383384714*^9}, {
+   3.5752115349923964`*^9, 3.5752115432760105`*^9}, {3.575211639216179*^9, 
+   3.5752117270443335`*^9}, {3.5752118371805267`*^9, 3.5752118706425858`*^9}, 
+   3.575211974632368*^9, 3.5752120599177184`*^9, {3.5752123195489745`*^9, 
+   3.575212371309865*^9}, 3.5752124305743694`*^9, {3.575212484503664*^9, 
+   3.575212525063735*^9}, {3.5752125668406086`*^9, 3.575212592487054*^9}, {
+   3.5752128570791187`*^9, 3.575212860901125*^9}, {3.5752130558546677`*^9, 
+   3.575213056057468*^9}, {3.5752131028575497`*^9, 3.57521311393357*^9}, {
+   3.5752131747580767`*^9, 3.5752131833848915`*^9}, {3.5752133598368015`*^9, 
+   3.5752133724728236`*^9}, {3.5752134116132927`*^9, 
+   3.5752134321273284`*^9}, {3.5752136426496983`*^9, 3.575213645847704*^9}, {
+   3.575213701352601*^9, 3.5752137530822926`*^9}, {3.5752139764122844`*^9, 
+   3.575213987691104*^9}, {3.5752140185011587`*^9, 3.575214027424374*^9}, {
+   3.575214062508836*^9, 3.575214062602436*^9}, {3.575214257821179*^9, 
+   3.575214262594787*^9}, {3.575214368347373*^9, 3.575214380967795*^9}, {
+   3.57521442363387*^9, 3.5752144238990707`*^9}, {3.575214499450003*^9, 
+   3.575214500058404*^9}, 3.575214576748139*^9, {3.57521481095135*^9, 
+   3.575214843898608*^9}, 3.575214876253065*^9, {3.5752149774660425`*^9, 
+   3.5752149781368437`*^9}, 3.5752150496629696`*^9, 3.57521525495933*^9, 
+   3.575215299435008*^9, {3.5752155376474266`*^9, 3.57521553959743*^9}, {
+   3.5752538893645706`*^9, 3.5752540263952117`*^9}, {3.579403604060711*^9, 
+   3.5794036182879357`*^9}, {3.579403651437994*^9, 3.579403657225604*^9}, 
+   3.5794037825562243`*^9, {3.579404106911994*^9, 3.579404125569627*^9}, {
+   3.5794042089985733`*^9, 3.579404223069798*^9}, 3.579404410878528*^9, 
+   3.579441901439934*^9, {3.579443313070813*^9, 3.5794433320092463`*^9}, {
+   3.579443572592869*^9, 3.5794435727020693`*^9}, {3.57944364165419*^9, 
+   3.5794436605614233`*^9}, {3.57944414815588*^9, 3.5794441490762815`*^9}, {
+   3.5794443234533877`*^9, 3.579444326370593*^9}, {3.579960865576582*^9, 
+   3.5799610490059233`*^9}, {3.5799616448585024`*^9, 3.579961688788895*^9}, {
+   3.582431741089363*^9, 3.5824317436477675`*^9}, {3.5824318747971983`*^9, 
+   3.5824318876048203`*^9}, {3.5824319690213633`*^9, 3.582431970971367*^9}, {
+   3.5825535632031603`*^9, 3.5825535703947725`*^9}, {3.582553793225564*^9, 
+   3.5825537937247653`*^9}, {3.5825661555095367`*^9, 3.582566202964355*^9}, {
+   3.582566280293661*^9, 3.582566280824247*^9}, 3.582566369140428*^9, {
+   3.5831149501658*^9, 3.5831149578098135`*^9}, {3.5831150008814898`*^9, 
+   3.583115073016016*^9}, {3.583115198814637*^9, 3.5831152262394853`*^9}, 
+   3.583115272165966*^9, {3.5831156069581537`*^9, 3.583115620701778*^9}, {
+   3.58311570158792*^9, 3.583115704271125*^9}, 3.5831157623032265`*^9, 
+   3.583115834328553*^9, {3.5831158735938225`*^9, 3.5831158788822317`*^9}, {
+   3.5831161314622755`*^9, 3.583116133849079*^9}, {3.583117408250149*^9, 
+   3.5831174631310453`*^9}, {3.5831174939255*^9, 3.5831175979932823`*^9}, {
+   3.5831176433113623`*^9, 3.583117657117386*^9}, {3.5831177591415653`*^9, 
+   3.583117764133574*^9}, {3.5831181130125866`*^9, 3.583118116054592*^9}, {
+   3.5831182106687584`*^9, 3.5831182597152443`*^9}, {3.583118318402548*^9, 
+   3.583118325937361*^9}, {3.5831186531167355`*^9, 3.583118660979149*^9}, {
+   3.583118713348441*^9, 3.5831187372476835`*^9}, {3.5831188204894295`*^9, 
+   3.583118858615896*^9}, {3.5831189178024006`*^9, 3.583118956194068*^9}, {
+   3.5831586333227377`*^9, 3.583158673898409*^9}, {3.583158934481267*^9, 
+   3.5831589442468843`*^9}, {3.583158978988145*^9, 3.583159012153803*^9}, {
+   3.583159123678399*^9, 3.5831591715236835`*^9}, {3.5831592145485587`*^9, 
+   3.5831592371061983`*^9}, {3.587352561088707*^9, 3.5873525625863094`*^9}, {
+   3.587387679652232*^9, 3.587387680635034*^9}, {3.5873877395563374`*^9, 
+   3.5873878319553003`*^9}, {3.5873878670553617`*^9, 3.587387867850963*^9}, {
+   3.587388236744811*^9, 3.5873882644192595`*^9}, {3.587388348753008*^9, 
+   3.5873883583314247`*^9}, {3.5873883985326953`*^9, 3.587388408797513*^9}, {
+   3.5873884874684515`*^9, 3.5873885062976847`*^9}, {3.5873885714277987`*^9, 
+   3.587388676135183*^9}, {3.58738870870804*^9, 3.587388709472441*^9}, {
+   3.5874082024286423`*^9, 3.5874082127714605`*^9}, {3.5874913514991093`*^9, 
+   3.5874913535601096`*^9}, {3.587872061663426*^9, 3.5878720905078764`*^9}, {
+   3.587872220970906*^9, 3.5878722512037587`*^9}, {3.5878724661409364`*^9, 
+   3.587872538618664*^9}, 3.587872573094724*^9, {3.5878726354012337`*^9, 
+   3.5878726449796505`*^9}, {3.58787269012613*^9, 3.587872754897444*^9}, {
+   3.5878728548936195`*^9, 3.5878728625220327`*^9}, {3.5886215721988277`*^9, 
+   3.588621650642387*^9}},
+ CellID->200022406],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`doffset$$ = 0, $CellContext`encodex$$ = 
+    "", $CellContext`eoffset$$ = 0, $CellContext`interceptx$$ = 
+    "", $CellContext`message$$ = "", $CellContext`messagex$$ = 
+    "", $CellContext`selector$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`eoffset$$], 0}, 0, 26}, {{
+       Hold[$CellContext`doffset$$], 0}, -26, 26}, {{
+       Hold[$CellContext`message$$], ""}}, {{
+       Hold[$CellContext`messagex$$], ""}}, {{
+       Hold[$CellContext`encodex$$], ""}}, {{
+       Hold[$CellContext`interceptx$$], ""}}, {{
+       Hold[$CellContext`selector$$], 1, ""}, {
+      1 -> "encoding", 2 -> "decoding"}}, {
+      Hold[
+       Item[
+        PaneSelector[{1 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               ActionMenu[
+               "choose a message", {
+                "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 1, 3]; Null), 
+                 "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 2, 3]; Null), 
+                 "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 3, 3]; Null), 
+                 "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 4, 3]; Null), 
+                 "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 5, 3]; Null), 
+                 "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 6, 3]; Null)}], 
+               Button[
+               "clear encoding area", $CellContext`message$$ = 
+                 ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 0,
+                 ImageSize -> 150]}], "", 
+             Row[{"encoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}], 2 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               Button[
+               "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+               Button[
+               "clear decoding area", $CellContext`interceptx$$ = 
+                 ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+             Row[{"decoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}]}, 
+         Dynamic[$CellContext`selector$$]]]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    572., {222., 130.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`eoffset$41318$$ = 
+    0, $CellContext`doffset$41319$$ = 0, $CellContext`selector$41320$$ = 
+    False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`doffset$$ = 0, $CellContext`encodex$$ = 
+        "", $CellContext`eoffset$$ = 0, $CellContext`interceptx$$ = 
+        "", $CellContext`message$$ = "", $CellContext`messagex$$ = 
+        "", $CellContext`selector$$ = 1}, "ControllerVariables" :> {
+        Hold[$CellContext`eoffset$$, $CellContext`eoffset$41318$$, 0], 
+        Hold[$CellContext`doffset$$, $CellContext`doffset$41319$$, 0], 
+        Hold[$CellContext`selector$$, $CellContext`selector$41320$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> PaneSelector[{1 -> Column[{
+            Style[
+            "or enter a message directly (max 32 characters)", 14, FontFamily -> 
+             "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, #]; \
+$CellContext`messagex$$ = StringJoin[$CellContext`messagex$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Row[{
+              Button["SPACE", 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, 
+                   " "]; $CellContext`messagex$$ = 
+                 StringJoin[$CellContext`messagex$$, "X"]], 
+               ImageSize -> {200, 20}, Appearance -> "FramedPalette"], 
+              Button["BACKSPACE", 
+               If[
+               StringLength[$CellContext`message$$] > 
+                0, $CellContext`message$$ = 
+                 StringDrop[$CellContext`message$$, -1]; \
+$CellContext`messagex$$ = StringDrop[$CellContext`messagex$$, -1]], 
+               ImageSize -> {120, 20}, Appearance -> "FramedPalette"]}], "", 
+            Text[
+             Row[{
+               Style["message   = ", 14, FontFamily -> "Helvetica"], 
+               
+               Style[$CellContext`message$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Text[
+             Row[{
+               Style["plaintext    = ", 14, FontFamily -> "Helvetica"], 
+               
+               Style[$CellContext`messagex$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[$CellContext`alph, $CellContext`x], "\[DownArrow]", 
+                Part[
+                 
+                 RotateLeft[$CellContext`alph, $CellContext`eoffset$$], \
+$CellContext`x]}, {$CellContext`x, 1, 26}]]], "", 
+            Row[{
+              Style["ciphertext = ", 14, FontFamily -> "Helvetica"], 
+              Style[$CellContext`encodex$$ = StringJoin[
+                 ReplaceAll[
+                  Characters[$CellContext`messagex$$], 
+                  
+                  Thread[$CellContext`alph -> 
+                   RotateLeft[$CellContext`alph, $CellContext`eoffset$$]]]], 
+               16, Bold, FontFamily -> "Helvetica"]}], "", Null}], 2 -> 
+         Column[{
+            Style[
+            "or enter a ciphertext string directly (max 32 characters)", 14, 
+             FontFamily -> "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`interceptx$$] < 
+                33, $CellContext`interceptx$$ = 
+                StringJoin[$CellContext`interceptx$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Button["BACKSPACE", 
+             If[
+             StringLength[$CellContext`interceptx$$] > 
+              0, $CellContext`interceptx$$ = 
+              StringDrop[$CellContext`interceptx$$, -1]], 
+             ImageSize -> {120, 20}, Appearance -> "FramedPalette"], "", 
+            Row[{
+              Style["intercept = ", 14, FontFamily -> "Helvetica"], 
+              
+              Style[$CellContext`interceptx$$, 16, Bold, FontFamily -> 
+               "Helvetica"]}], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[
+                 
+                 RotateRight[$CellContext`alph, $CellContext`doffset$$], \
+$CellContext`x], "\[DownArrow]", 
+                Part[$CellContext`alph, $CellContext`x]}, {$CellContext`x, 1, 
+                26}]]], "", 
+            Grid[
+             Prepend[
+              Table[{$CellContext`d, 
+                Row[
+                 Flatten[{
+                   Apply[List, 
+                    StringReplace[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], 
+                    Pattern[$CellContext`y, 
+                    StringCases[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], {
+                    Condition[
+                    StringExpression[StartOfString, 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`s, 
+                    Blank[]], 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], 
+                    Pattern[$CellContext`s, 
+                    Blank[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], EndOfString], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x}, Overlaps -> True]] :> 
+                    Style[$CellContext`y, FontColor -> RGBColor[1, 0, 0], 18, 
+                    Bold]]]}]]}, {$CellContext`d, $CellContext`doffset$$ - 
+                2, $CellContext`doffset$$ + 2}], {"offset", "decoding"}], 
+             Frame -> All, Background -> {None, {4 -> Lighter[Gray, 0.85]}}, 
+             ItemSize -> {Automatic, 2}], Null}]}, $CellContext`selector$$], 
+      "Specifications" :> {{{$CellContext`eoffset$$, 0}, 0, 26, ControlType -> 
+         None}, {{$CellContext`doffset$$, 0}, -26, 26, ControlType -> 
+         None}, {{$CellContext`message$$, ""}, ControlType -> 
+         None}, {{$CellContext`messagex$$, ""}, ControlType -> 
+         None}, {{$CellContext`encodex$$, ""}, ControlType -> 
+         None}, {{$CellContext`interceptx$$, ""}, ControlType -> 
+         None}, {{$CellContext`selector$$, 1, ""}, {
+         1 -> "encoding", 2 -> "decoding"}, ControlType -> SetterBar}, 
+        Item[
+         PaneSelector[{1 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                ActionMenu[
+                "choose a message", {
+                 "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 1, 3]; Null), 
+                  "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 2, 3]; Null), 
+                  "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 3, 3]; Null), 
+                  "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 4, 3]; Null), 
+                  "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 5, 3]; Null), 
+                  "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 6, 3]; Null)}], 
+                Button[
+                "clear encoding area", $CellContext`message$$ = 
+                  ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 
+                  0, ImageSize -> 150]}], "", 
+              Row[{"encoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}], 2 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                Button[
+                "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+                Button[
+                "clear decoding area", $CellContext`interceptx$$ = 
+                  ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+              Row[{"decoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}]}, 
+          Dynamic[$CellContext`selector$$]]]}, 
+      "Options" :> {TrackedSymbols :> All}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{615., {258., 263.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`alph = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
+         "Z"}, $CellContext`caesar = {{
+         "ALL LEGIONS ADVANCE NOW", "ALLXLEGIONSXADVANCEXNOW", 14}, {
+         "THE DIE IS CAST", "THEXDIEXISXCAST", 9}, {
+         "I CAME I SAW I CONQUERED", "IXCAMEXIXSAWXIXCONQUERED", 15}, {
+         "THE IDES OF MARCH ARE COME", "THEXIDESXOFXMARCHXAREXCOME", 7}, {
+         "EVEN YOU BRUTUS", "EVENXYOUXBRUTUS", 12}, {
+         "THEN FALL CAESAR", "THENXFALLXCAESAR", 13}}}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->764662174]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ManipulateCaptionSection"],
+
+Cell[TextData[{
+ "The Caesar (or shift substitution) cipher is a widely known encryption \
+method in which each character in the message is simply shifted a set number \
+of places in the alphabet (e.g., with an offset of two, A is encoded as C, B \
+as D, etc.). Decryption is achieved either by simply reversing the shift ",
+ Cell[BoxData[
+  FormBox["s", TraditionalForm]], "InlineMath"],
+ " with its inverse ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{"-", "s"}], TraditionalForm]], "InlineMath"],
+ " or adding a further shift ",
+ Cell[BoxData[
+  FormBox["t", TraditionalForm]], "InlineMath"],
+ " such that ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"s", "+", "t"}], "=", "26"}], TraditionalForm]], "InlineMath"],
+ ". "
+}], "ManipulateCaption",
+ CellChangeTimes->{{3.5799610735023727`*^9, 3.579961074032426*^9}, {
+  3.580746792919216*^9, 3.5807468138892455`*^9}, {3.58074690989038*^9, 
+  3.5807469107503815`*^9}, {3.5807471133786697`*^9, 3.580747117198675*^9}, {
+  3.5807489803551426`*^9, 3.580748987447436*^9}, {3.5831595322587166`*^9, 
+  3.583159670272159*^9}, {3.583159735215073*^9, 3.5831597741995416`*^9}, {
+  3.5831598413732595`*^9, 3.5831598452420664`*^9}, {3.587412990126587*^9, 
+  3.587413107125532*^9}, {3.588621722599555*^9, 3.5886217287571993`*^9}},
+ CellID->362983374],
+
+Cell["\<\
+On the encoding panel, a message with spaces (chosen from a list or entered \
+directly) is converted to a single plaintext string by replacing all the \
+spaces with the letter X, then encrypted with an offset controlled by the \
+slider. On the decoding panel, the encrypted string can be intercepted (using \
+the \"intercept an encrypted message\" button) or a ciphertext string entered \
+directly, then decrypted with an offset controlled by a second slider. String \
+matching code highlights the message once an appropriate decoding offset has \
+been applied (English words only).\
+\>", "ManipulateCaption",
+ CellChangeTimes->{{3.5799610735023727`*^9, 3.579961074032426*^9}, {
+  3.580746792919216*^9, 3.5807468138892455`*^9}, {3.58074690989038*^9, 
+  3.5807469107503815`*^9}, {3.5807471133786697`*^9, 3.580747117198675*^9}, {
+  3.5807489803551426`*^9, 3.580748987447436*^9}, {3.5831595322587166`*^9, 
+  3.583159670272159*^9}, {3.583159735215073*^9, 3.5831597741995416`*^9}, {
+  3.5831598413732595`*^9, 3.5831598452420664`*^9}, {3.587412990126587*^9, 
+  3.5874131350286293`*^9}, {3.588622111492936*^9, 3.588622111540868*^9}},
+ CellID->1012984494]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ThumbnailSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`doffset$$ = -15, $CellContext`encodex$$ = 
+    "XMRPBTMXMHPLMXMRDCFJTGTS", $CellContext`eoffset$$ = 
+    15, $CellContext`interceptx$$ = 
+    "XMRPBTMXMHPLMXMRDCFJTGTS", $CellContext`message$$ = 
+    "I CAME I SAW I CONQUERED", $CellContext`messagex$$ = 
+    "IXCAMEXIXSAWXIXCONQUERED", $CellContext`selector$$ = 2, Typeset`show$$ = 
+    True, Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`eoffset$$], 15}, 0, 26}, {{
+       Hold[$CellContext`doffset$$], -15}, -26, 26}, {{
+       Hold[$CellContext`message$$], "I CAME I SAW I CONQUERED"}}, {{
+       Hold[$CellContext`messagex$$], "IXCAMEXIXSAWXIXCONQUERED"}}, {{
+       Hold[$CellContext`encodex$$], "XMRPBTMXMHPLMXMRDCFJTGTS"}}, {{
+       Hold[$CellContext`interceptx$$], "XMRPBTMXMHPLMXMRDCFJTGTS"}}, {{
+       Hold[$CellContext`selector$$], 2, ""}, {
+      1 -> "encoding", 2 -> "decoding"}}, {
+      Hold[
+       Item[
+        PaneSelector[{1 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               ActionMenu[
+               "choose a message", {
+                "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 1, 3]; Null), 
+                 "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 2, 3]; Null), 
+                 "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 3, 3]; Null), 
+                 "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 4, 3]; Null), 
+                 "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 5, 3]; Null), 
+                 "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 6, 3]; Null)}], 
+               Button[
+               "clear encoding area", $CellContext`message$$ = 
+                 ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 0,
+                 ImageSize -> 150]}], "", 
+             Row[{"encoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}], 2 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               Button[
+               "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+               Button[
+               "clear decoding area", $CellContext`interceptx$$ = 
+                 ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+             Row[{"decoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}]}, 
+         Dynamic[$CellContext`selector$$]]]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    572., {174., 180.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`eoffset$41393$$ = 
+    0, $CellContext`doffset$41394$$ = 0, $CellContext`selector$41395$$ = 
+    False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`doffset$$ = -15, $CellContext`encodex$$ = 
+        "XMRPBTMXMHPLMXMRDCFJTGTS", $CellContext`eoffset$$ = 
+        15, $CellContext`interceptx$$ = 
+        "XMRPBTMXMHPLMXMRDCFJTGTS", $CellContext`message$$ = 
+        "I CAME I SAW I CONQUERED", $CellContext`messagex$$ = 
+        "IXCAMEXIXSAWXIXCONQUERED", $CellContext`selector$$ = 2}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`eoffset$$, $CellContext`eoffset$41393$$, 0], 
+        Hold[$CellContext`doffset$$, $CellContext`doffset$41394$$, 0], 
+        Hold[$CellContext`selector$$, $CellContext`selector$41395$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> PaneSelector[{1 -> Column[{
+            Style[
+            "or enter a message directly (max 32 characters)", 14, FontFamily -> 
+             "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, #]; \
+$CellContext`messagex$$ = StringJoin[$CellContext`messagex$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Row[{
+              Button["SPACE", 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, 
+                   " "]; $CellContext`messagex$$ = 
+                 StringJoin[$CellContext`messagex$$, "X"]], 
+               ImageSize -> {200, 20}, Appearance -> "FramedPalette"], 
+              Button["BACKSPACE", 
+               If[
+               StringLength[$CellContext`message$$] > 
+                0, $CellContext`message$$ = 
+                 StringDrop[$CellContext`message$$, -1]; \
+$CellContext`messagex$$ = StringDrop[$CellContext`messagex$$, -1]], 
+               ImageSize -> {120, 20}, Appearance -> "FramedPalette"]}], "", 
+            Text[
+             Row[{
+               Style["message   = ", 14, FontFamily -> "Helvetica"], 
+               Style[$CellContext`message$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Text[
+             Row[{
+               Style["plaintext    = ", 14, FontFamily -> "Helvetica"], 
+               
+               Style[$CellContext`messagex$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[$CellContext`alph, $CellContext`x], "\[DownArrow]", 
+                Part[
+                 
+                 RotateLeft[$CellContext`alph, $CellContext`eoffset$$], \
+$CellContext`x]}, {$CellContext`x, 1, 26}]]], "", 
+            Row[{
+              Style["ciphertext = ", 14, FontFamily -> "Helvetica"], 
+              Style[$CellContext`encodex$$ = StringJoin[
+                 ReplaceAll[
+                  Characters[$CellContext`messagex$$], 
+                  
+                  Thread[$CellContext`alph -> 
+                   RotateLeft[$CellContext`alph, $CellContext`eoffset$$]]]], 
+               16, Bold, FontFamily -> "Helvetica"]}], "", Null}], 2 -> 
+         Column[{
+            Style[
+            "or enter a ciphertext string directly (max 32 characters)", 14, 
+             FontFamily -> "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`interceptx$$] < 
+                33, $CellContext`interceptx$$ = 
+                StringJoin[$CellContext`interceptx$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Button["BACKSPACE", 
+             If[
+             StringLength[$CellContext`interceptx$$] > 
+              0, $CellContext`interceptx$$ = 
+              StringDrop[$CellContext`interceptx$$, -1]], 
+             ImageSize -> {120, 20}, Appearance -> "FramedPalette"], "", 
+            Row[{
+              Style["intercept = ", 14, FontFamily -> "Helvetica"], 
+              
+              Style[$CellContext`interceptx$$, 16, Bold, FontFamily -> 
+               "Helvetica"]}], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[
+                 
+                 RotateRight[$CellContext`alph, $CellContext`doffset$$], \
+$CellContext`x], "\[DownArrow]", 
+                Part[$CellContext`alph, $CellContext`x]}, {$CellContext`x, 1, 
+                26}]]], "", 
+            Grid[
+             Prepend[
+              Table[{$CellContext`d, 
+                Row[
+                 Flatten[{
+                   Apply[List, 
+                    StringReplace[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], 
+                    Pattern[$CellContext`y, 
+                    StringCases[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], {
+                    Condition[
+                    StringExpression[StartOfString, 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`s, 
+                    Blank[]], 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], 
+                    Pattern[$CellContext`s, 
+                    Blank[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], EndOfString], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x}, Overlaps -> True]] :> 
+                    Style[$CellContext`y, FontColor -> RGBColor[1, 0, 0], 18, 
+                    Bold]]]}]]}, {$CellContext`d, $CellContext`doffset$$ - 
+                2, $CellContext`doffset$$ + 2}], {"offset", "decoding"}], 
+             Frame -> All, Background -> {None, {4 -> Lighter[Gray, 0.85]}}, 
+             ItemSize -> {Automatic, 2}], Null}]}, $CellContext`selector$$], 
+      "Specifications" :> {{{$CellContext`eoffset$$, 15}, 0, 26, ControlType -> 
+         None}, {{$CellContext`doffset$$, -15}, -26, 26, ControlType -> 
+         None}, {{$CellContext`message$$, "I CAME I SAW I CONQUERED"}, 
+         ControlType -> 
+         None}, {{$CellContext`messagex$$, "IXCAMEXIXSAWXIXCONQUERED"}, 
+         ControlType -> 
+         None}, {{$CellContext`encodex$$, "XMRPBTMXMHPLMXMRDCFJTGTS"}, 
+         ControlType -> 
+         None}, {{$CellContext`interceptx$$, "XMRPBTMXMHPLMXMRDCFJTGTS"}, 
+         ControlType -> None}, {{$CellContext`selector$$, 2, ""}, {
+         1 -> "encoding", 2 -> "decoding"}, ControlType -> SetterBar}, 
+        Item[
+         PaneSelector[{1 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                ActionMenu[
+                "choose a message", {
+                 "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 1, 3]; Null), 
+                  "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 2, 3]; Null), 
+                  "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 3, 3]; Null), 
+                  "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 4, 3]; Null), 
+                  "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 5, 3]; Null), 
+                  "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 6, 3]; Null)}], 
+                Button[
+                "clear encoding area", $CellContext`message$$ = 
+                  ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 
+                  0, ImageSize -> 150]}], "", 
+              Row[{"encoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}], 2 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                Button[
+                "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+                Button[
+                "clear decoding area", $CellContext`interceptx$$ = 
+                  ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+              Row[{"decoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}]}, 
+          Dynamic[$CellContext`selector$$]]]}, 
+      "Options" :> {TrackedSymbols :> All}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{615., {259., 264.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`alph = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
+         "Z"}, $CellContext`caesar = {{
+         "ALL LEGIONS ADVANCE NOW", "ALLXLEGIONSXADVANCEXNOW", 14}, {
+         "THE DIE IS CAST", "THEXDIEXISXCAST", 9}, {
+         "I CAME I SAW I CONQUERED", "IXCAMEXIXSAWXIXCONQUERED", 15}, {
+         "THE IDES OF MARCH ARE COME", "THEXIDESXOFXMARCHXAREXCOME", 7}, {
+         "EVEN YOU BRUTUS", "EVENXYOUXBRUTUS", 12}, {
+         "THEN FALL CAESAR", "THENXFALLXCAESAR", 13}}}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->1135014770]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SnapshotsSection"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`doffset$$ = -2, $CellContext`encodex$$ = 
+    "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`eoffset$$ = 
+    7, $CellContext`interceptx$$ = "", $CellContext`message$$ = 
+    "THE IDES OF MARCH ARE COME", $CellContext`messagex$$ = 
+    "THEXIDESXOFXMARCHXAREXCOME", $CellContext`selector$$ = 1, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`eoffset$$], 7}, 0, 26}, {{
+       Hold[$CellContext`doffset$$], -2}, -26, 26}, {{
+       Hold[$CellContext`message$$], "THE IDES OF MARCH ARE COME"}}, {{
+       Hold[$CellContext`messagex$$], "THEXIDESXOFXMARCHXAREXCOME"}}, {{
+       Hold[$CellContext`encodex$$], "AOLEPKLZEVMETHYJOEHYLEJVTL"}}, {{
+       Hold[$CellContext`interceptx$$], ""}}, {{
+       Hold[$CellContext`selector$$], 1, ""}, {
+      1 -> "encoding", 2 -> "decoding"}}, {
+      Hold[
+       Item[
+        PaneSelector[{1 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               ActionMenu[
+               "choose a message", {
+                "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 1, 3]; Null), 
+                 "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 2, 3]; Null), 
+                 "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 3, 3]; Null), 
+                 "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 4, 3]; Null), 
+                 "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 5, 3]; Null), 
+                 "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 6, 3]; Null)}], 
+               Button[
+               "clear encoding area", $CellContext`message$$ = 
+                 ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 0,
+                 ImageSize -> 150]}], "", 
+             Row[{"encoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}], 2 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               Button[
+               "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+               Button[
+               "clear decoding area", $CellContext`interceptx$$ = 
+                 ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+             Row[{"decoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}]}, 
+         Dynamic[$CellContext`selector$$]]]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    572., {218., 134.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`eoffset$41468$$ = 
+    0, $CellContext`doffset$41469$$ = 0, $CellContext`selector$41470$$ = 
+    False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`doffset$$ = -2, $CellContext`encodex$$ = 
+        "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`eoffset$$ = 
+        7, $CellContext`interceptx$$ = "", $CellContext`message$$ = 
+        "THE IDES OF MARCH ARE COME", $CellContext`messagex$$ = 
+        "THEXIDESXOFXMARCHXAREXCOME", $CellContext`selector$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`eoffset$$, $CellContext`eoffset$41468$$, 0], 
+        Hold[$CellContext`doffset$$, $CellContext`doffset$41469$$, 0], 
+        Hold[$CellContext`selector$$, $CellContext`selector$41470$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> PaneSelector[{1 -> Column[{
+            Style[
+            "or enter a message directly (max 32 characters)", 14, FontFamily -> 
+             "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, #]; \
+$CellContext`messagex$$ = StringJoin[$CellContext`messagex$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Row[{
+              Button["SPACE", 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, 
+                   " "]; $CellContext`messagex$$ = 
+                 StringJoin[$CellContext`messagex$$, "X"]], 
+               ImageSize -> {200, 20}, Appearance -> "FramedPalette"], 
+              Button["BACKSPACE", 
+               If[
+               StringLength[$CellContext`message$$] > 
+                0, $CellContext`message$$ = 
+                 StringDrop[$CellContext`message$$, -1]; \
+$CellContext`messagex$$ = StringDrop[$CellContext`messagex$$, -1]], 
+               ImageSize -> {120, 20}, Appearance -> "FramedPalette"]}], "", 
+            Text[
+             Row[{
+               Style["message   = ", 14, FontFamily -> "Helvetica"], 
+               Style[$CellContext`message$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Text[
+             Row[{
+               Style["plaintext    = ", 14, FontFamily -> "Helvetica"], 
+               
+               Style[$CellContext`messagex$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[$CellContext`alph, $CellContext`x], "\[DownArrow]", 
+                Part[
+                 
+                 RotateLeft[$CellContext`alph, $CellContext`eoffset$$], \
+$CellContext`x]}, {$CellContext`x, 1, 26}]]], "", 
+            Row[{
+              Style["ciphertext = ", 14, FontFamily -> "Helvetica"], 
+              Style[$CellContext`encodex$$ = StringJoin[
+                 ReplaceAll[
+                  Characters[$CellContext`messagex$$], 
+                  
+                  Thread[$CellContext`alph -> 
+                   RotateLeft[$CellContext`alph, $CellContext`eoffset$$]]]], 
+               16, Bold, FontFamily -> "Helvetica"]}], "", Null}], 2 -> 
+         Column[{
+            Style[
+            "or enter a ciphertext string directly (max 32 characters)", 14, 
+             FontFamily -> "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`interceptx$$] < 
+                33, $CellContext`interceptx$$ = 
+                StringJoin[$CellContext`interceptx$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Button["BACKSPACE", 
+             If[
+             StringLength[$CellContext`interceptx$$] > 
+              0, $CellContext`interceptx$$ = 
+              StringDrop[$CellContext`interceptx$$, -1]], 
+             ImageSize -> {120, 20}, Appearance -> "FramedPalette"], "", 
+            Row[{
+              Style["intercept = ", 14, FontFamily -> "Helvetica"], 
+              
+              Style[$CellContext`interceptx$$, 16, Bold, FontFamily -> 
+               "Helvetica"]}], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[
+                 
+                 RotateRight[$CellContext`alph, $CellContext`doffset$$], \
+$CellContext`x], "\[DownArrow]", 
+                Part[$CellContext`alph, $CellContext`x]}, {$CellContext`x, 1, 
+                26}]]], "", 
+            Grid[
+             Prepend[
+              Table[{$CellContext`d, 
+                Row[
+                 Flatten[{
+                   Apply[List, 
+                    StringReplace[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], 
+                    Pattern[$CellContext`y, 
+                    StringCases[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], {
+                    Condition[
+                    StringExpression[StartOfString, 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`s, 
+                    Blank[]], 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], 
+                    Pattern[$CellContext`s, 
+                    Blank[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], EndOfString], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x}, Overlaps -> True]] :> 
+                    Style[$CellContext`y, FontColor -> RGBColor[1, 0, 0], 18, 
+                    Bold]]]}]]}, {$CellContext`d, $CellContext`doffset$$ - 
+                2, $CellContext`doffset$$ + 2}], {"offset", "decoding"}], 
+             Frame -> All, Background -> {None, {4 -> Lighter[Gray, 0.85]}}, 
+             ItemSize -> {Automatic, 2}], Null}]}, $CellContext`selector$$], 
+      "Specifications" :> {{{$CellContext`eoffset$$, 7}, 0, 26, ControlType -> 
+         None}, {{$CellContext`doffset$$, -2}, -26, 26, ControlType -> 
+         None}, {{$CellContext`message$$, "THE IDES OF MARCH ARE COME"}, 
+         ControlType -> 
+         None}, {{$CellContext`messagex$$, "THEXIDESXOFXMARCHXAREXCOME"}, 
+         ControlType -> 
+         None}, {{$CellContext`encodex$$, "AOLEPKLZEVMETHYJOEHYLEJVTL"}, 
+         ControlType -> None}, {{$CellContext`interceptx$$, ""}, ControlType -> 
+         None}, {{$CellContext`selector$$, 1, ""}, {
+         1 -> "encoding", 2 -> "decoding"}, ControlType -> SetterBar}, 
+        Item[
+         PaneSelector[{1 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                ActionMenu[
+                "choose a message", {
+                 "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 1, 3]; Null), 
+                  "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 2, 3]; Null), 
+                  "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 3, 3]; Null), 
+                  "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 4, 3]; Null), 
+                  "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 5, 3]; Null), 
+                  "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 6, 3]; Null)}], 
+                Button[
+                "clear encoding area", $CellContext`message$$ = 
+                  ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 
+                  0, ImageSize -> 150]}], "", 
+              Row[{"encoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}], 2 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                Button[
+                "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+                Button[
+                "clear decoding area", $CellContext`interceptx$$ = 
+                  ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+              Row[{"decoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}]}, 
+          Dynamic[$CellContext`selector$$]]]}, 
+      "Options" :> {TrackedSymbols :> All}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{615., {258., 263.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`alph = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
+         "Z"}, $CellContext`caesar = {{
+         "ALL LEGIONS ADVANCE NOW", "ALLXLEGIONSXADVANCEXNOW", 14}, {
+         "THE DIE IS CAST", "THEXDIEXISXCAST", 9}, {
+         "I CAME I SAW I CONQUERED", "IXCAMEXIXSAWXIXCONQUERED", 15}, {
+         "THE IDES OF MARCH ARE COME", "THEXIDESXOFXMARCHXAREXCOME", 7}, {
+         "EVEN YOU BRUTUS", "EVENXYOUXBRUTUS", 12}, {
+         "THEN FALL CAESAR", "THENXFALLXCAESAR", 13}}}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->96003089],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`doffset$$ = -2, $CellContext`encodex$$ = 
+    "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`eoffset$$ = 
+    7, $CellContext`interceptx$$ = 
+    "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`message$$ = 
+    "THE IDES OF MARCH ARE COME", $CellContext`messagex$$ = 
+    "THEXIDESXOFXMARCHXAREXCOME", $CellContext`selector$$ = 2, 
+    Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+    Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ = 
+    1, Typeset`name$$ = "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`eoffset$$], 7}, 0, 26}, {{
+       Hold[$CellContext`doffset$$], -2}, -26, 26}, {{
+       Hold[$CellContext`message$$], "THE IDES OF MARCH ARE COME"}}, {{
+       Hold[$CellContext`messagex$$], "THEXIDESXOFXMARCHXAREXCOME"}}, {{
+       Hold[$CellContext`encodex$$], "AOLEPKLZEVMETHYJOEHYLEJVTL"}}, {{
+       Hold[$CellContext`interceptx$$], "AOLEPKLZEVMETHYJOEHYLEJVTL"}}, {{
+       Hold[$CellContext`selector$$], 2, ""}, {
+      1 -> "encoding", 2 -> "decoding"}}, {
+      Hold[
+       Item[
+        PaneSelector[{1 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               ActionMenu[
+               "choose a message", {
+                "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 1, 3]; Null), 
+                 "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 2, 3]; Null), 
+                 "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 3, 3]; Null), 
+                 "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 4, 3]; Null), 
+                 "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 5, 3]; Null), 
+                 "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 6, 3]; Null)}], 
+               Button[
+               "clear encoding area", $CellContext`message$$ = 
+                 ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 0,
+                 ImageSize -> 150]}], "", 
+             Row[{"encoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}], 2 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               Button[
+               "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+               Button[
+               "clear decoding area", $CellContext`interceptx$$ = 
+                 ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+             Row[{"decoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}]}, 
+         Dynamic[$CellContext`selector$$]]]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    572., {174., 180.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`eoffset$41543$$ = 
+    0, $CellContext`doffset$41544$$ = 0, $CellContext`selector$41545$$ = 
+    False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`doffset$$ = -2, $CellContext`encodex$$ = 
+        "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`eoffset$$ = 
+        7, $CellContext`interceptx$$ = 
+        "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`message$$ = 
+        "THE IDES OF MARCH ARE COME", $CellContext`messagex$$ = 
+        "THEXIDESXOFXMARCHXAREXCOME", $CellContext`selector$$ = 2}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`eoffset$$, $CellContext`eoffset$41543$$, 0], 
+        Hold[$CellContext`doffset$$, $CellContext`doffset$41544$$, 0], 
+        Hold[$CellContext`selector$$, $CellContext`selector$41545$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> PaneSelector[{1 -> Column[{
+            Style[
+            "or enter a message directly (max 32 characters)", 14, FontFamily -> 
+             "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, #]; \
+$CellContext`messagex$$ = StringJoin[$CellContext`messagex$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Row[{
+              Button["SPACE", 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, 
+                   " "]; $CellContext`messagex$$ = 
+                 StringJoin[$CellContext`messagex$$, "X"]], 
+               ImageSize -> {200, 20}, Appearance -> "FramedPalette"], 
+              Button["BACKSPACE", 
+               If[
+               StringLength[$CellContext`message$$] > 
+                0, $CellContext`message$$ = 
+                 StringDrop[$CellContext`message$$, -1]; \
+$CellContext`messagex$$ = StringDrop[$CellContext`messagex$$, -1]], 
+               ImageSize -> {120, 20}, Appearance -> "FramedPalette"]}], "", 
+            Text[
+             Row[{
+               Style["message   = ", 14, FontFamily -> "Helvetica"], 
+               Style[$CellContext`message$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Text[
+             Row[{
+               Style["plaintext    = ", 14, FontFamily -> "Helvetica"], 
+               
+               Style[$CellContext`messagex$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[$CellContext`alph, $CellContext`x], "\[DownArrow]", 
+                Part[
+                 
+                 RotateLeft[$CellContext`alph, $CellContext`eoffset$$], \
+$CellContext`x]}, {$CellContext`x, 1, 26}]]], "", 
+            Row[{
+              Style["ciphertext = ", 14, FontFamily -> "Helvetica"], 
+              Style[$CellContext`encodex$$ = StringJoin[
+                 ReplaceAll[
+                  Characters[$CellContext`messagex$$], 
+                  
+                  Thread[$CellContext`alph -> 
+                   RotateLeft[$CellContext`alph, $CellContext`eoffset$$]]]], 
+               16, Bold, FontFamily -> "Helvetica"]}], "", Null}], 2 -> 
+         Column[{
+            Style[
+            "or enter a ciphertext string directly (max 32 characters)", 14, 
+             FontFamily -> "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`interceptx$$] < 
+                33, $CellContext`interceptx$$ = 
+                StringJoin[$CellContext`interceptx$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Button["BACKSPACE", 
+             If[
+             StringLength[$CellContext`interceptx$$] > 
+              0, $CellContext`interceptx$$ = 
+              StringDrop[$CellContext`interceptx$$, -1]], 
+             ImageSize -> {120, 20}, Appearance -> "FramedPalette"], "", 
+            Row[{
+              Style["intercept = ", 14, FontFamily -> "Helvetica"], 
+              
+              Style[$CellContext`interceptx$$, 16, Bold, FontFamily -> 
+               "Helvetica"]}], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[
+                 
+                 RotateRight[$CellContext`alph, $CellContext`doffset$$], \
+$CellContext`x], "\[DownArrow]", 
+                Part[$CellContext`alph, $CellContext`x]}, {$CellContext`x, 1, 
+                26}]]], "", 
+            Grid[
+             Prepend[
+              Table[{$CellContext`d, 
+                Row[
+                 Flatten[{
+                   Apply[List, 
+                    StringReplace[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], 
+                    Pattern[$CellContext`y, 
+                    StringCases[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], {
+                    Condition[
+                    StringExpression[StartOfString, 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`s, 
+                    Blank[]], 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], 
+                    Pattern[$CellContext`s, 
+                    Blank[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], EndOfString], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x}, Overlaps -> True]] :> 
+                    Style[$CellContext`y, FontColor -> RGBColor[1, 0, 0], 18, 
+                    Bold]]]}]]}, {$CellContext`d, $CellContext`doffset$$ - 
+                2, $CellContext`doffset$$ + 2}], {"offset", "decoding"}], 
+             Frame -> All, Background -> {None, {4 -> Lighter[Gray, 0.85]}}, 
+             ItemSize -> {Automatic, 2}], Null}]}, $CellContext`selector$$], 
+      "Specifications" :> {{{$CellContext`eoffset$$, 7}, 0, 26, ControlType -> 
+         None}, {{$CellContext`doffset$$, -2}, -26, 26, ControlType -> 
+         None}, {{$CellContext`message$$, "THE IDES OF MARCH ARE COME"}, 
+         ControlType -> 
+         None}, {{$CellContext`messagex$$, "THEXIDESXOFXMARCHXAREXCOME"}, 
+         ControlType -> 
+         None}, {{$CellContext`encodex$$, "AOLEPKLZEVMETHYJOEHYLEJVTL"}, 
+         ControlType -> 
+         None}, {{$CellContext`interceptx$$, "AOLEPKLZEVMETHYJOEHYLEJVTL"}, 
+         ControlType -> None}, {{$CellContext`selector$$, 2, ""}, {
+         1 -> "encoding", 2 -> "decoding"}, ControlType -> SetterBar}, 
+        Item[
+         PaneSelector[{1 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                ActionMenu[
+                "choose a message", {
+                 "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 1, 3]; Null), 
+                  "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 2, 3]; Null), 
+                  "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 3, 3]; Null), 
+                  "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 4, 3]; Null), 
+                  "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 5, 3]; Null), 
+                  "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 6, 3]; Null)}], 
+                Button[
+                "clear encoding area", $CellContext`message$$ = 
+                  ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 
+                  0, ImageSize -> 150]}], "", 
+              Row[{"encoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}], 2 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                Button[
+                "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+                Button[
+                "clear decoding area", $CellContext`interceptx$$ = 
+                  ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+              Row[{"decoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}]}, 
+          Dynamic[$CellContext`selector$$]]]}, 
+      "Options" :> {TrackedSymbols :> All}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{615., {259., 264.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`alph = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
+         "Z"}, $CellContext`caesar = {{
+         "ALL LEGIONS ADVANCE NOW", "ALLXLEGIONSXADVANCEXNOW", 14}, {
+         "THE DIE IS CAST", "THEXDIEXISXCAST", 9}, {
+         "I CAME I SAW I CONQUERED", "IXCAMEXIXSAWXIXCONQUERED", 15}, {
+         "THE IDES OF MARCH ARE COME", "THEXIDESXOFXMARCHXAREXCOME", 7}, {
+         "EVEN YOU BRUTUS", "EVENXYOUXBRUTUS", 12}, {
+         "THEN FALL CAESAR", "THENXFALLXCAESAR", 13}}}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->763697926],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`doffset$$ = -7, $CellContext`encodex$$ = 
+    "QHQZJKAGJNDGFGE", $CellContext`eoffset$$ = 
+    12, $CellContext`interceptx$$ = 
+    "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`message$$ = 
+    "EVEN YOU BRUTUS", $CellContext`messagex$$ = 
+    "EVENXYOUXBRUTUS", $CellContext`selector$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`eoffset$$], 12}, 0, 26}, {{
+       Hold[$CellContext`doffset$$], -7}, -26, 26}, {{
+       Hold[$CellContext`message$$], "EVEN YOU BRUTUS"}}, {{
+       Hold[$CellContext`messagex$$], "EVENXYOUXBRUTUS"}}, {{
+       Hold[$CellContext`encodex$$], "QHQZJKAGJNDGFGE"}}, {{
+       Hold[$CellContext`interceptx$$], "AOLEPKLZEVMETHYJOEHYLEJVTL"}}, {{
+       Hold[$CellContext`selector$$], 1, ""}, {
+      1 -> "encoding", 2 -> "decoding"}}, {
+      Hold[
+       Item[
+        PaneSelector[{1 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               ActionMenu[
+               "choose a message", {
+                "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 1, 3]; Null), 
+                 "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 2, 3]; Null), 
+                 "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 3, 3]; Null), 
+                 "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 4, 3]; Null), 
+                 "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 5, 3]; Null), 
+                 "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                   Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                   Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                   Part[$CellContext`caesar, 6, 3]; Null)}], 
+               Button[
+               "clear encoding area", $CellContext`message$$ = 
+                 ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 0,
+                 ImageSize -> 150]}], "", 
+             Row[{"encoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}], 2 -> Column[{"", 
+             Row[{
+               Spacer[6], 
+               Button[
+               "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+               Button[
+               "clear decoding area", $CellContext`interceptx$$ = 
+                 ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+             Row[{"decoding offset", 
+               Manipulator[
+                Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                "Labeled"]}, 
+              Spacer[2]]}]}, 
+         Dynamic[$CellContext`selector$$]]]], 
+      Manipulate`Dump`ThisIsNotAControl}}, Typeset`size$$ = {
+    572., {220., 134.}}, Typeset`update$$ = 0, Typeset`initDone$$, 
+    Typeset`skipInitDone$$ = False, $CellContext`eoffset$41618$$ = 
+    0, $CellContext`doffset$41619$$ = 0, $CellContext`selector$41620$$ = 
+    False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, 
+      "Variables" :> {$CellContext`doffset$$ = -7, $CellContext`encodex$$ = 
+        "QHQZJKAGJNDGFGE", $CellContext`eoffset$$ = 
+        12, $CellContext`interceptx$$ = 
+        "AOLEPKLZEVMETHYJOEHYLEJVTL", $CellContext`message$$ = 
+        "EVEN YOU BRUTUS", $CellContext`messagex$$ = 
+        "EVENXYOUXBRUTUS", $CellContext`selector$$ = 1}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`eoffset$$, $CellContext`eoffset$41618$$, 0], 
+        Hold[$CellContext`doffset$$, $CellContext`doffset$41619$$, 0], 
+        Hold[$CellContext`selector$$, $CellContext`selector$41620$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> PaneSelector[{1 -> Column[{
+            Style[
+            "or enter a message directly (max 32 characters)", 14, FontFamily -> 
+             "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, #]; \
+$CellContext`messagex$$ = StringJoin[$CellContext`messagex$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Row[{
+              Button["SPACE", 
+               If[
+               StringLength[$CellContext`message$$] < 
+                33, $CellContext`message$$ = 
+                 StringJoin[$CellContext`message$$, 
+                   " "]; $CellContext`messagex$$ = 
+                 StringJoin[$CellContext`messagex$$, "X"]], 
+               ImageSize -> {200, 20}, Appearance -> "FramedPalette"], 
+              Button["BACKSPACE", 
+               If[
+               StringLength[$CellContext`message$$] > 
+                0, $CellContext`message$$ = 
+                 StringDrop[$CellContext`message$$, -1]; \
+$CellContext`messagex$$ = StringDrop[$CellContext`messagex$$, -1]], 
+               ImageSize -> {120, 20}, Appearance -> "FramedPalette"]}], "", 
+            Text[
+             Row[{
+               Style["message   = ", 14, FontFamily -> "Helvetica"], 
+               Style[$CellContext`message$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Text[
+             Row[{
+               Style["plaintext    = ", 14, FontFamily -> "Helvetica"], 
+               
+               Style[$CellContext`messagex$$, 16, Bold, FontFamily -> 
+                "Helvetica"]}]], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[$CellContext`alph, $CellContext`x], "\[DownArrow]", 
+                Part[
+                 
+                 RotateLeft[$CellContext`alph, $CellContext`eoffset$$], \
+$CellContext`x]}, {$CellContext`x, 1, 26}]]], "", 
+            Row[{
+              Style["ciphertext = ", 14, FontFamily -> "Helvetica"], 
+              Style[$CellContext`encodex$$ = StringJoin[
+                 ReplaceAll[
+                  Characters[$CellContext`messagex$$], 
+                  
+                  Thread[$CellContext`alph -> 
+                   RotateLeft[$CellContext`alph, $CellContext`eoffset$$]]]], 
+               16, Bold, FontFamily -> "Helvetica"]}], "", Null}], 2 -> 
+         Column[{
+            Style[
+            "or enter a ciphertext string directly (max 32 characters)", 14, 
+             FontFamily -> "Helvetica"], 
+            Row[
+             Map[Button[#, 
+               If[
+               StringLength[$CellContext`interceptx$$] < 
+                33, $CellContext`interceptx$$ = 
+                StringJoin[$CellContext`interceptx$$, #]], 
+               ImageSize -> {22, 20}, Appearance -> 
+               "FramedPalette"]& , $CellContext`alph]], 
+            Button["BACKSPACE", 
+             If[
+             StringLength[$CellContext`interceptx$$] > 
+              0, $CellContext`interceptx$$ = 
+              StringDrop[$CellContext`interceptx$$, -1]], 
+             ImageSize -> {120, 20}, Appearance -> "FramedPalette"], "", 
+            Row[{
+              Style["intercept = ", 14, FontFamily -> "Helvetica"], 
+              
+              Style[$CellContext`interceptx$$, 16, Bold, FontFamily -> 
+               "Helvetica"]}], "", 
+            Grid[
+             Transpose[
+              Table[{
+                Part[
+                 
+                 RotateRight[$CellContext`alph, $CellContext`doffset$$], \
+$CellContext`x], "\[DownArrow]", 
+                Part[$CellContext`alph, $CellContext`x]}, {$CellContext`x, 1, 
+                26}]]], "", 
+            Grid[
+             Prepend[
+              Table[{$CellContext`d, 
+                Row[
+                 Flatten[{
+                   Apply[List, 
+                    StringReplace[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], 
+                    Pattern[$CellContext`y, 
+                    StringCases[
+                    StringJoin[
+                    ReplaceAll[
+                    Characters[$CellContext`interceptx$$], 
+                    
+                    Thread[$CellContext`alph -> 
+                    RotateLeft[$CellContext`alph, $CellContext`d]]]], {
+                    Condition[
+                    StringExpression[StartOfString, 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`s, 
+                    Blank[]], 
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], 
+                    Pattern[$CellContext`s, 
+                    Blank[]]], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x, Condition[
+                    StringExpression[
+                    Pattern[$CellContext`x, 
+                    BlankSequence[]], EndOfString], 
+                    DictionaryLookup[$CellContext`x, IgnoreCase -> 
+                    True] != {}] :> $CellContext`x}, Overlaps -> True]] :> 
+                    Style[$CellContext`y, FontColor -> RGBColor[1, 0, 0], 18, 
+                    Bold]]]}]]}, {$CellContext`d, $CellContext`doffset$$ - 
+                2, $CellContext`doffset$$ + 2}], {"offset", "decoding"}], 
+             Frame -> All, Background -> {None, {4 -> Lighter[Gray, 0.85]}}, 
+             ItemSize -> {Automatic, 2}], Null}]}, $CellContext`selector$$], 
+      "Specifications" :> {{{$CellContext`eoffset$$, 12}, 0, 26, ControlType -> 
+         None}, {{$CellContext`doffset$$, -7}, -26, 26, ControlType -> 
+         None}, {{$CellContext`message$$, "EVEN YOU BRUTUS"}, ControlType -> 
+         None}, {{$CellContext`messagex$$, "EVENXYOUXBRUTUS"}, ControlType -> 
+         None}, {{$CellContext`encodex$$, "QHQZJKAGJNDGFGE"}, ControlType -> 
+         None}, {{$CellContext`interceptx$$, "AOLEPKLZEVMETHYJOEHYLEJVTL"}, 
+         ControlType -> None}, {{$CellContext`selector$$, 1, ""}, {
+         1 -> "encoding", 2 -> "decoding"}, ControlType -> SetterBar}, 
+        Item[
+         PaneSelector[{1 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                ActionMenu[
+                "choose a message", {
+                 "ALL LEGIONS ADVANCE NOW" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 1, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 1, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 1, 3]; Null), 
+                  "THE DIE IS CAST" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 2, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 2, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 2, 3]; Null), 
+                  "I CAME I SAW I CONQUERED" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 3, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 3, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 3, 3]; Null), 
+                  "THE IDES OF MARCH ARE COME" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 4, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 4, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 4, 3]; Null), 
+                  "EVEN YOU BRUTUS" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 5, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 5, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 5, 3]; Null), 
+                  "THEN FALL CAESAR" :> ($CellContext`message$$ = 
+                    Part[$CellContext`caesar, 6, 1]; $CellContext`messagex$$ = 
+                    Part[$CellContext`caesar, 6, 2]; $CellContext`eoffset$$ = 
+                    Part[$CellContext`caesar, 6, 3]; Null)}], 
+                Button[
+                "clear encoding area", $CellContext`message$$ = 
+                  ""; $CellContext`messagex$$ = ""; $CellContext`eoffset$$ = 
+                  0, ImageSize -> 150]}], "", 
+              Row[{"encoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`eoffset$$], {0, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}], 2 -> Column[{"", 
+              Row[{
+                Spacer[6], 
+                Button[
+                "intercept an encrypted message", $CellContext`interceptx$$ = \
+$CellContext`encodex$$; $CellContext`doffset$$ = -2, ImageSize -> 250], 
+                Button[
+                "clear decoding area", $CellContext`interceptx$$ = 
+                  ""; $CellContext`doffset$$ = -2, ImageSize -> 150]}], "", 
+              Row[{"decoding offset", 
+                Manipulator[
+                 Dynamic[$CellContext`doffset$$], {-26, 26, 1}, Appearance -> 
+                 "Labeled"]}, 
+               Spacer[2]]}]}, 
+          Dynamic[$CellContext`selector$$]]]}, 
+      "Options" :> {TrackedSymbols :> All}, 
+      "DefaultOptions" :> {ControllerLinking -> True}],
+     ImageSizeCache->{615., {259., 264.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>({$CellContext`alph = {
+        "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", 
+         "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
+         "Z"}, $CellContext`caesar = {{
+         "ALL LEGIONS ADVANCE NOW", "ALLXLEGIONSXADVANCEXNOW", 14}, {
+         "THE DIE IS CAST", "THEXDIEXISXCAST", 9}, {
+         "I CAME I SAW I CONQUERED", "IXCAMEXIXSAWXIXCONQUERED", 15}, {
+         "THE IDES OF MARCH ARE COME", "THEXIDESXOFXMARCHXAREXCOME", 7}, {
+         "EVEN YOU BRUTUS", "EVENXYOUXBRUTUS", 12}, {
+         "THEN FALL CAESAR", "THENXFALLXCAESAR", 13}}}; 
+     Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellID->2108767810]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "DetailsSection"],
+
+Cell[TextData[{
+ "See \"",
+ ButtonBox["Caesar Cipher\"",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://en.wikipedia.org/wiki/Caesar_cipher"], None},
+  ButtonNote->"http://en.wikipedia.org/wiki/Caesar_cipher"],
+ " on Wikipedia."
+}], "DetailNotes",
+ CellChangeTimes->{{3.5717770617400703`*^9, 3.5717770996637373`*^9}, {
+  3.579536295646289*^9, 3.5795362972174463`*^9}, {3.579536347281452*^9, 
+  3.579536350928817*^9}, {3.588622132699044*^9, 3.588622141115213*^9}},
+ CellID->169071083],
+
+Cell[TextData[{
+ "String matching code is derived from the ",
+ StyleBox["Mathematica",
+  FontSlant->"Italic"],
+ " tutorial ",
+ ButtonBox["Working with String Patterns",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://reference.wolfram.com/mathematica/tutorial/\
+WorkingWithStringPatterns.html"], None},
+  ButtonNote->
+   "http://reference.wolfram.com/mathematica/tutorial/\
+WorkingWithStringPatterns.html"],
+ ", especially the sections General String Patterns & Some Examples \[Rule] \
+Highlight Patterns. In coding the ",
+ StyleBox["PaneSelector", "MR"],
+ " statements, the author was greatly helped by inspecting the Demonstration \
+\"",
+ ButtonBox["Volumes of Solids of Revolution: Shell Method",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://demonstrations.wolfram.com/\
+VolumesOfSolidsOfRevolutionShellMethod/"], None},
+  ButtonNote->
+   "http://demonstrations.wolfram.com/VolumesOfSolidsOfRevolutionShellMethod/\
+"],
+ "\" by Helen Papadopoulos."
+}], "DetailNotes",
+ CellChangeTimes->{{3.5717770617400703`*^9, 3.5717770996637373`*^9}, {
+   3.579536295646289*^9, 3.5795362972174463`*^9}, 3.579536347281452*^9, {
+   3.5831599287178135`*^9, 3.5831599724134903`*^9}, {3.5831600456868186`*^9, 
+   3.5831600962933073`*^9}, {3.5874131800246*^9, 3.587413201504735*^9}, {
+   3.5886221480690813`*^9, 3.588622164194488*^9}},
+ CellID->651001076]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "ControlSuggestionsSection"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Resize Images"]}],
+  "\"Click inside an image to reveal its orange resize frame.\\nDrag any of \
+the orange resize handles to resize the image.\""]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"ResizeImages"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Rotate and Zoom in 3D"]}],
+  RowBox[{
+   "\"Drag a 3D graphic to rotate it. Starting the drag near the center \
+tumbles\\nthe graphic; starting near a corner turns it parallel to the plane \
+of the screen.\\nHold down \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" (or \"", 
+    FrameBox[
+    "Cmd", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" on Mac) and drag up and down to zoom.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"RotateAndZoomIn3D"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Drag Locators"]}],
+  RowBox[{"\"Drag any locator (\"", 
+    GraphicsBox[
+     LocatorBox[
+      Scaled[{0.5, 0.5}]], ImageSize -> 20], 
+    "\", etc.) to move it around.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"DragLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Create and Delete Locators"]}],
+  RowBox[{"\"Insert a new locator in the graphic by holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key\\nand clicking where you want it to be. Delete a locator by \
+clicking it\\nwhile holding down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" key.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"CreateAndDeleteLocators"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Slider Zoom"]}],
+  RowBox[{"\"Hold down the \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" key while moving a slider to make fine adjustments in the slider \
+value.\\nHold \"", 
+    FrameBox[
+    "Ctrl", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" and/or \"", 
+    FrameBox[
+    "Shift", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], "\" at the same time as \"", 
+    FrameBox[
+    "Alt", Background -> GrayLevel[0.9], FrameMargins -> 2, FrameStyle -> 
+     GrayLevel[0.9]], 
+    "\" to make ever finer adjustments.\""}]]], "ControlSuggestions",
+ CellChangeTimes->{3.5795363347001944`*^9, 3.587388091914157*^9},
+ FontFamily->"Verdana",
+ CellTags->"SliderZoom"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Gamepad Controls"]}],
+  "\"Control this Demonstration with a gamepad or other\\nhuman interface \
+device connected to your computer.\""]], "ControlSuggestions",
+ CellChangeTimes->{3.35696210375764*^9, 3.3895522232313623`*^9, 
+  3.5825663287390213`*^9, 3.587388096219764*^9},
+ FontFamily->"Verdana",
+ CellTags->"GamepadControls"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Automatic Animation"]}],
+  RowBox[{"\"Animate a slider in this Demonstration by clicking the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJzzTSzJSM1NLMlMTlRwL0osyMhMLlZwyy8CCjEzMjAwcIKwAgOI/R/IhBKc\n\
+/4EAyGAG0f+nTZsGwgysIJIRKsWKLAXGIHFmEpUgLADxWUAkI24jZs+eTaEt\n\
+IG+wQKRmzJgBlYf5lhEA30OqWA=="], "Graphics", ImageSize -> {9, 9}, ImageMargins -> 
+      0, CellBaseline -> Baseline], BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"button\\nnext to the slider, and then clicking the play button that \
+appears.\\nAnimate all controls by selecting \"", 
+    StyleBox["Autorun", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}]]], "ControlSuggestions",
+ CellChangeTimes->{3.58256633037291*^9, 3.5873881024441752`*^9},
+ FontFamily->"Verdana",
+ CellTags->"AutomaticAnimation"],
+
+Cell[BoxData[
+ TooltipBox[
+  RowBox[{
+   CheckboxBox[False], Cell[" Bookmark Animation"]}],
+  RowBox[{
+   "\"See a prepared animation of this Demonstration by selecting\\n\"", 
+    StyleBox["Animate Bookmarks", FontWeight -> "Bold"], "\" from the\"", 
+    AdjustmentBox[
+     Cell[
+      GraphicsData[
+      "CompressedBitmap", 
+       "eJyNULENwyAQfEySIlMwTVJlCGRFsosokeNtqBmDBagoaZjAI1C8/8GUUUC6\n\
+57h7cQ8PvU7Pl17nUav7oj/TPH7V7b2QJAUAXBkKmCPRowxICy64bRvGGNF7\n\
+X8CctGoDSN4xhIDGGDhzFXwUh3/ClBKrDQPmnGXtI6u0OOd+tZBVUqy1xSaH\n\
+UqiK6pPe4XdEdAz6563tx/gejuORGMxJaz8mdpJn7hc="], "Graphics", 
+      ImageSize -> {10, 10}, ImageMargins -> 0, CellBaseline -> Baseline], 
+     BoxBaselineShift -> 0.1839080459770115, 
+     BoxMargins -> {{0., 0.}, {-0.1839080459770115, 0.1839080459770115}}], 
+    "\"menu.\""}]]], "ControlSuggestions",
+ FontFamily->"Verdana",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SearchTermsSection"],
+
+Cell["Caesar cipher", "DemoNotes",
+ CellChangeTimes->{{3.5717546061475787`*^9, 3.571754611404788*^9}},
+ CellID->44210492],
+
+Cell["substitution cipher", "DemoNotes",
+ CellChangeTimes->{{3.57175457263872*^9, 3.571754600016768*^9}},
+ CellID->23408047],
+
+Cell["DictionaryLookup", "SearchTerms",
+ CellChangeTimes->{{3.5717546255852127`*^9, 3.571754630187221*^9}},
+ CellID->346801601],
+
+Cell["StringCases", "SearchTerms",
+ CellChangeTimes->{{3.5717546326676254`*^9, 3.57175463522603*^9}, {
+  3.57175522169346*^9, 3.5717552217090597`*^9}},
+ CellID->96373746],
+
+Cell["PaneSelector", "SearchTerms",
+ CellChangeTimes->{{3.5717546326676254`*^9, 3.57175463522603*^9}, {
+  3.57175522169346*^9, 3.5717552298054743`*^9}, {3.5752557218841896`*^9, 
+  3.575255726111797*^9}},
+ CellID->8682492]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "RelatedLinksSection"],
+
+Cell[TextData[ButtonBox["Cipher Encoder",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://demonstrations.wolfram.com/CipherEncoder/"], None},
+ ButtonNote->
+  "http://demonstrations.wolfram.com/CipherEncoder/"]], "RelatedLinks",
+ CellChangeTimes->{{3.5753953368590403`*^9, 3.575395336863041*^9}},
+ CellID->828810347],
+
+Cell[TextData[ButtonBox["Solve the Cryptoquote",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://demonstrations.wolfram.com/SolveTheCryptoquote/"], None},
+ ButtonNote->
+  "http://demonstrations.wolfram.com/SolveTheCryptoquote/"]], "RelatedLinks",
+ CellChangeTimes->{{3.575395354397794*^9, 3.5753953544017944`*^9}},
+ CellID->5597370],
+
+Cell[TextData[ButtonBox["Volumes of Solids of Revolution: Shell Method",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://demonstrations.wolfram.com/\
+VolumesOfSolidsOfRevolutionShellMethod/"], None},
+ ButtonNote->
+  "http://demonstrations.wolfram.com/VolumesOfSolidsOfRevolutionShellMethod/"]\
+], "RelatedLinks",
+ CellChangeTimes->{{3.579536285167241*^9, 3.579536285173242*^9}},
+ CellID->440061159],
+
+Cell[TextData[ButtonBox["Working with String Patterns",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["http://reference.wolfram.com/mathematica/tutorial/\
+WorkingWithStringPatterns.html"], None},
+ ButtonNote->
+  "http://reference.wolfram.com/mathematica/tutorial/\
+WorkingWithStringPatterns.html"]], "RelatedLinks",
+ CellChangeTimes->{{3.5795362494236674`*^9, 3.579536249428668*^9}},
+ CellID->559953451]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "AuthorSection"],
+
+Cell[TextData[{
+ "Contributed by: ",
+ ButtonBox["Andrew Graham",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["http://demonstrations.wolfram.com/search.html?query=Andrew+Graham"], 
+    None},
+  ButtonNote->
+   "http://demonstrations.wolfram.com/search.html?query=Andrew+Graham"]
+}], "Author",
+ CellChangeTimes->{
+  3.35696210375764*^9, {3.432333043774981*^9, 3.432333045441087*^9}, {
+   3.571754242978941*^9, 3.5717542461613464`*^9}, {3.57539516303566*^9, 
+   3.57539516304066*^9}},
+ CellID->367719307]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{909, 841},
+WindowMargins->{{0, Automatic}, {Automatic, 2}},
+FrontEndVersion->"9.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (January 25, \
+2013)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Demonstration.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "ResizeImages"->{
+  Cell[116502, 2398, 290, 7, 29, "ControlSuggestions",
+   CellTags->"ResizeImages"]},
+ "RotateAndZoomIn3D"->{
+  Cell[116795, 2407, 661, 16, 29, "ControlSuggestions",
+   CellTags->"RotateAndZoomIn3D"]},
+ "DragLocators"->{
+  Cell[117459, 2425, 318, 10, 29, "ControlSuggestions",
+   CellTags->"DragLocators"]},
+ "CreateAndDeleteLocators"->{
+  Cell[117780, 2437, 615, 14, 29, "ControlSuggestions",
+   CellTags->"CreateAndDeleteLocators"]},
+ "SliderZoom"->{
+  Cell[118398, 2453, 893, 22, 29, "ControlSuggestions",
+   CellTags->"SliderZoom"]},
+ "GamepadControls"->{
+  Cell[119294, 2477, 396, 9, 29, "ControlSuggestions",
+   CellTags->"GamepadControls"]},
+ "AutomaticAnimation"->{
+  Cell[119693, 2488, 1507, 31, 29, "ControlSuggestions",
+   CellTags->"AutomaticAnimation"]},
+ "BookmarkAnimation"->{
+  Cell[121203, 2521, 886, 20, 29, "ControlSuggestions",
+   CellTags->"BookmarkAnimation"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"ResizeImages", 125463, 2651},
+ {"RotateAndZoomIn3D", 125573, 2654},
+ {"DragLocators", 125684, 2657},
+ {"CreateAndDeleteLocators", 125801, 2660},
+ {"SliderZoom", 125916, 2663},
+ {"GamepadControls", 126023, 2666},
+ {"AutomaticAnimation", 126137, 2669},
+ {"BookmarkAnimation", 126255, 2672}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[579, 22, 111, 1, 76, "DemoTitle"],
+Cell[CellGroupData[{
+Cell[715, 27, 33, 0, 275, "InitializationSection"],
+Cell[751, 29, 301, 7, 25, "Input",
+ InitializationCell->True,
+ CellID->36941508],
+Cell[1055, 38, 445, 11, 25, "Input",
+ InitializationCell->True,
+ CellID->1138706843],
+Cell[1503, 51, 1245, 35, 70, "Input",
+ InitializationCell->True,
+ CellID->1082867241],
+Cell[2751, 88, 340, 8, 25, "Input",
+ InitializationCell->True,
+ CellID->2019131884]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3128, 101, 29, 0, 243, "ManipulateSection"],
+Cell[CellGroupData[{
+Cell[3182, 105, 28812, 585, 1575, "Input",
+ CellID->200022406],
+Cell[31997, 692, 15652, 310, 533, "Output",
+ CellID->764662174]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[47698, 1008, 36, 0, 181, "ManipulateCaptionSection"],
+Cell[47737, 1010, 1288, 28, 55, "ManipulateCaption",
+ CellID->362983374],
+Cell[49028, 1040, 1157, 17, 87, "ManipulateCaption",
+ CellID->1012984494]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[50222, 1062, 28, 0, 179, "ThumbnailSection"],
+Cell[50253, 1064, 16098, 317, 535, "Output",
+ CellID->1135014770]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66388, 1386, 28, 0, 149, "SnapshotsSection"],
+Cell[66419, 1388, 15992, 314, 533, "Output",
+ CellID->96003089],
+Cell[82414, 1704, 16121, 317, 535, "Output",
+ CellID->763697926],
+Cell[98538, 2023, 15964, 314, 535, "Output",
+ CellID->2108767810]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[114539, 2342, 26, 0, 357, "DetailsSection"],
+Cell[114568, 2344, 494, 12, 23, "DetailNotes",
+ CellID->169071083],
+Cell[115065, 2358, 1360, 33, 55, "DetailNotes",
+ CellID->651001076]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[116462, 2396, 37, 0, 131, "ControlSuggestionsSection"],
+Cell[116502, 2398, 290, 7, 29, "ControlSuggestions",
+ CellTags->"ResizeImages"],
+Cell[116795, 2407, 661, 16, 29, "ControlSuggestions",
+ CellTags->"RotateAndZoomIn3D"],
+Cell[117459, 2425, 318, 10, 29, "ControlSuggestions",
+ CellTags->"DragLocators"],
+Cell[117780, 2437, 615, 14, 29, "ControlSuggestions",
+ CellTags->"CreateAndDeleteLocators"],
+Cell[118398, 2453, 893, 22, 29, "ControlSuggestions",
+ CellTags->"SliderZoom"],
+Cell[119294, 2477, 396, 9, 29, "ControlSuggestions",
+ CellTags->"GamepadControls"],
+Cell[119693, 2488, 1507, 31, 29, "ControlSuggestions",
+ CellTags->"AutomaticAnimation"],
+Cell[121203, 2521, 886, 20, 29, "ControlSuggestions",
+ CellTags->"BookmarkAnimation"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[122126, 2546, 30, 0, 165, "SearchTermsSection"],
+Cell[122159, 2548, 121, 2, 23, "DemoNotes",
+ CellID->44210492],
+Cell[122283, 2552, 124, 2, 23, "DemoNotes",
+ CellID->23408047],
+Cell[122410, 2556, 127, 2, 23, "SearchTerms",
+ CellID->346801601],
+Cell[122540, 2560, 170, 3, 23, "SearchTerms",
+ CellID->96373746],
+Cell[122713, 2565, 221, 4, 23, "SearchTerms",
+ CellID->8682492]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[122971, 2574, 31, 0, 149, "RelatedLinksSection"],
+Cell[123005, 2576, 322, 7, 23, "RelatedLinks",
+ CellID->828810347],
+Cell[123330, 2585, 339, 7, 23, "RelatedLinks",
+ CellID->5597370],
+Cell[123672, 2594, 405, 9, 23, "RelatedLinks",
+ CellID->440061159],
+Cell[124080, 2605, 404, 9, 23, "RelatedLinks",
+ CellID->559953451]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[124521, 2619, 25, 0, 149, "AuthorSection"],
+Cell[124549, 2621, 507, 14, 23, "Author",
+ CellID->367719307]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)

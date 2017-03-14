@@ -1,0 +1,4 @@
+cat ~libs111/s111.motd
+
+setenv CLASSPATH .:/~libs111/utils/java
+

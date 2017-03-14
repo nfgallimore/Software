@@ -1,0 +1,11 @@
+let bindir = "/usr/bin"
+let ext_lib = ".a"
+let ext_dll = ".so"
+let supports_shared_libraries = true
+let mkdll = "gcc -bundle -flat_namespace -undefined suppress -Wl,-no_compact_unwind"
+let byteccrpath = ""
+let nativeccrpath = ""
+let mksharedlibrpath = ""
+let toolpref = ""
+let syslib x = "-l"^x;;
+let mklib out files opts = Printf.sprintf "ar rc %s %s %s; ranlib %s" out opts files out;;

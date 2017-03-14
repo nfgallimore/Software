@@ -1,0 +1,47 @@
+<head>
+  <title>Leaderboard</title>
+</head>
+
+<body>
+<main class="container">
+  <h1>Leaderboard <small>brought to you by Meteor</small></h1>
+  {{> leaderboard}}
+</main>
+
+<br>
+<hr>
+<footer>
+  <p>Made by Roger Zurawicki<p>
+  <footer>
+</body>
+
+<template name="leaderboard">
+<table id="leaderboard" class="table table-hover">
+  <thead>
+    <th>Name</th>
+    <th>Score</th>
+  </thead>
+    {{#each players}}
+      {{> player}}
+    {{/each}}
+</table>
+<hr>
+  {{#if selected_name}}
+  <div id="details" class="span4">
+    <h4>{{selected_name}}</h4>
+    <a id="increment" class="btn">Give 1000 points</a>
+  </div>
+  {{/if}}
+
+  {{#unless selected_name}}
+  <p class="lead">Click a player to select</p>
+  {{/unless}}
+</template>
+
+<template name="player">
+  <tr class="{{selected}}">
+    <td><span class="lead">{{name}}</span></td>
+    <td><h4>{{score}}</h4></td>
+  </tr>
+</template>
+

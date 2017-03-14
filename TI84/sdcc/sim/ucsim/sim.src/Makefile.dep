@@ -1,0 +1,49 @@
+arg.o: arg.cc ../ddconfig.h ../custom.h ../i_string.h ../globals.h \
+  ../stypes.h ../appcl.h ../pobjcl.h ../pobjt.h ../eventcl.h \
+  ../optioncl.h argcl.h simcl.h ../cmd.src/newcmdcl.h \
+  ../cmd.src/commandcl.h ../gui.src/guicl.h ../gui.src/ifcl.h guiobjcl.h \
+  uccl.h hwcl.h memcl.h ../errorcl.h brkcl.h stackcl.h \
+  ../cmd.src/cmdutil.h
+brk.o: brk.cc ../ddconfig.h ../custom.h ../pobjcl.h ../pobjt.h \
+  ../eventcl.h brkcl.h ../stypes.h memcl.h guiobjcl.h ../errorcl.h
+guiobj.o: guiobj.cc guiobjcl.h ../ddconfig.h ../custom.h ../pobjcl.h \
+  ../pobjt.h ../eventcl.h
+hw.o: hw.cc ../ddconfig.h ../custom.h ../i_string.h ../stypes.h hwcl.h \
+  ../pobjcl.h ../pobjt.h ../eventcl.h guiobjcl.h ../cmd.src/newcmdcl.h \
+  ../appcl.h ../optioncl.h argcl.h simcl.h ../gui.src/guicl.h \
+  ../gui.src/ifcl.h uccl.h memcl.h ../errorcl.h brkcl.h stackcl.h \
+  ../cmd.src/commandcl.h
+itsrc.o: itsrc.cc ../ddconfig.h ../custom.h ../i_string.h itsrccl.h \
+  ../pobjcl.h ../pobjt.h ../eventcl.h ../stypes.h
+mem.o: mem.cc ../i_string.h ../ddconfig.h ../custom.h ../utils.h \
+  ../stypes.h ../globals.h ../appcl.h ../pobjcl.h ../pobjt.h \
+  ../eventcl.h ../optioncl.h argcl.h simcl.h ../cmd.src/newcmdcl.h \
+  ../cmd.src/commandcl.h ../gui.src/guicl.h ../gui.src/ifcl.h guiobjcl.h \
+  uccl.h hwcl.h memcl.h ../errorcl.h brkcl.h stackcl.h \
+  ../cmd.src/cmdutil.h
+obsolete.o: obsolete.cc
+sim.o: sim.cc ../ddconfig.h ../custom.h ../i_string.h ../globals.h \
+  ../stypes.h ../appcl.h ../pobjcl.h ../pobjt.h ../eventcl.h \
+  ../optioncl.h argcl.h simcl.h ../cmd.src/newcmdcl.h \
+  ../cmd.src/commandcl.h ../gui.src/guicl.h ../gui.src/ifcl.h guiobjcl.h \
+  uccl.h hwcl.h memcl.h ../errorcl.h brkcl.h stackcl.h \
+  ../cmd.src/cmdsetcl.h ../cmd.src/cmdguicl.h
+stack.o: stack.cc ../cmd.src/newcmdcl.h ../ddconfig.h ../custom.h \
+  ../pobjcl.h ../pobjt.h ../eventcl.h ../appcl.h ../optioncl.h \
+  ../stypes.h argcl.h simcl.h ../gui.src/guicl.h ../gui.src/ifcl.h \
+  guiobjcl.h uccl.h hwcl.h memcl.h ../errorcl.h brkcl.h stackcl.h \
+  ../cmd.src/commandcl.h
+test_mem_speed.o: test_mem_speed.cc memcl.h ../ddconfig.h ../custom.h \
+  ../stypes.h ../pobjcl.h ../pobjt.h ../eventcl.h guiobjcl.h \
+  ../errorcl.h hwcl.h ../cmd.src/newcmdcl.h ../appcl.h ../optioncl.h \
+  argcl.h simcl.h ../gui.src/guicl.h ../gui.src/ifcl.h uccl.h brkcl.h \
+  stackcl.h ../cmd.src/commandcl.h
+uc.o: uc.cc ../ddconfig.h ../custom.h ../i_string.h ../globals.h \
+  ../stypes.h ../appcl.h ../pobjcl.h ../pobjt.h ../eventcl.h \
+  ../optioncl.h argcl.h simcl.h ../cmd.src/newcmdcl.h \
+  ../cmd.src/commandcl.h ../gui.src/guicl.h ../gui.src/ifcl.h guiobjcl.h \
+  uccl.h hwcl.h memcl.h ../errorcl.h brkcl.h stackcl.h ../utils.h \
+  ../cmd.src/cmduccl.h ../cmd.src/bpcl.h ../cmd.src/getcl.h \
+  ../cmd.src/setcl.h ../cmd.src/infocl.h ../cmd.src/timercl.h \
+  ../cmd.src/cmdstatcl.h ../cmd.src/cmdmemcl.h ../cmd.src/cmdutil.h \
+  itsrccl.h

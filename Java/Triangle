@@ -1,0 +1,5 @@
+public class Triangle
+{
+	ArrayList sides = new ArrayList<Double>(double a, double b, double c);
+	ArrayList angles = new ArrayList<Double>(double alpha, double beta, double gamma)
+}

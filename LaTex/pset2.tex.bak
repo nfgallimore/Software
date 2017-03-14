@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsfonts,amssymb,fullpage,enumerate}
+
+\newcommand{\psnum}{2}
+\newcommand{\assdate}{Sep. 13, 2013 \hspace{-5em}}
+\newcommand{\duedate}{Sep. 20, 2013}
+\def\inclsolns{0}
+
+\input{macros}
+
+\newcounter{problem}
+\newenvironment{problem}[1]{\stepcounter{problem}
+\paragraph{Problem \theproblem. #1}}{}
+
+\ifnum\inclsolns=1
+\newenvironment{solution}{\paragraph{Solution.}}{}
+\else
+\newenvironment{solution}{\begin{remove}}{\end{remove}}
+\fi
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------$
+\begin{document}
+
+\begin{center}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{|c|}
+\hline
+{\large \bfseries CS 127/CSCI E-127: Introduction to Cryptography} \\
+
+{\large \bfseries Problem Set \psnum}\\
+Assigned: \assdate
+\hspace{20em} Due: \duedate\ (5:00 PM)\\
+\hline
+\end{tabular}
+\renewcommand{\arraystretch}{1}
+\end{center}
+\vspace{1cm}
+
+\newcommand{\statSec}{$$\left|\pr{\Enc_K(m_0)\in T} - \pr{\Enc_K(m_1)\in T}\right| \leq
+\eps$$}
+
+\begin{problem}{(Statistical security)}
+Recall that  $(\Gen,\Enc,\Dec)$ has {\em statistically
+$\eps$-indistinguishable encryptions} if for every two
+$m_0,m_1\in\MsgSp$ and every $T\subseteq \CiphSp$,
+\statSec where the probabilities are taken over $K\getsr \Gen$ and
+the coin tosses of $\Enc$.
+\statSec
+\end{problem}
+
+\end{document}

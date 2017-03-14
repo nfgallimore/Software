@@ -1,0 +1,27 @@
+# just basically copied over stuff from lib51 that seemed relevant
+
+alias javac /home/l/i/libs1/pub/local/i386/jdk1.5.0_03/bin/javac -J-Xms64m -J-Xmx128m -classpath .:/home/l/i/libs111/utils/java
+alias java /home/l/i/libs1/pub/local/i386/jdk1.5.0_03/bin/java -classpath .:/home/l/i/libs111/utils/java
+alias ojavac /usr/java/j2sdk1.4.2_04/bin/javac -classpath .:/home/l/i/libs111/utils/java
+alias ojava /usr/java/j2sdk1.4.2_04/bin/java -classpath .:/home/l/i/libs111/utils/java
+alias java_g /usr/bin/java_g -classpath .:/home/l/i/libs111/utils/java
+alias jdb /home/l/i/libs1/pub/local/i386/jdk1.5.0_03/bin/jdb -J-Xms64m -J-Xmx128m -classpath .:/home/l/i/libs111/utils/java
+
+alias submit /usr/local/bin/submit
+
+if ($?prompt) then
+  if ($SHELL == "/shells/csh") then
+    echo "We recommend that you use tcsh as your default shell."
+    echo "You can type chsh now to change it to /shells/tcsh."
+    set prompt = "$USER@$HOST% "
+  else
+    switch ("$prompt")
+      case "ice% ":
+      case "fas% ":
+      case "$HOST% ":
+      case "$USER@$HOST% ":
+        set prompt="[%M:\!] %~> %" 
+    endsw 
+  endif 
+endif
+

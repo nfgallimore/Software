@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>47C63ECC-9085-4F72-B062-B7C7D5F7B129</string>
+	<key>IDESourceControlProjectName</key>
+	<string>assembly</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9DB3D0FE-B4C9-4388-A745-54C9A0B97BA1</key>
+		<string>https://github.com/nfgallimore/Code.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Assembly/cocoa/assembly/assembly.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9DB3D0FE-B4C9-4388-A745-54C9A0B97BA1</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/nfgallimore/Code.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9DB3D0FE-B4C9-4388-A745-54C9A0B97BA1</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9DB3D0FE-B4C9-4388-A745-54C9A0B97BA1</string>
+			<key>IDESourceControlWCCName</key>
+			<string>assembly</string>
+		</dict>
+	</array>
+</dict>
+</plist>
